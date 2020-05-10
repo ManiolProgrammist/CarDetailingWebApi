@@ -5,28 +5,31 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="904563a3d75341a19fd55f764953eca3" Name="Diagram1" ZoomLevel="21">
-        <EntityTypeShape EntityType="CarCosmeticSalonModel.Blog" Width="1.5" PointX="7.75" PointY="1" />
-        <EntityTypeShape EntityType="CarCosmeticSalonModel.BlogImage" Width="1.5" PointX="10" PointY="0.875" />
-        <EntityTypeShape EntityType="CarCosmeticSalonModel.Order" Width="1.5" PointX="8.25" PointY="4" />
-        <EntityTypeShape EntityType="CarCosmeticSalonModel.OrdersInformation" Width="1.5" PointX="10.5" PointY="4.75" />
-        <EntityTypeShape EntityType="CarCosmeticSalonModel.OrdersTemplate" Width="1.5" PointX="6" PointY="6.375" />
-        <EntityTypeShape EntityType="CarCosmeticSalonModel.OrdersTemplateImage" Width="1.5" PointX="8.25" PointY="11.125" />
-        <EntityTypeShape EntityType="CarCosmeticSalonModel.OrdersTemplateInformation" Width="1.5" PointX="8.25" PointY="8.375" />
-        <EntityTypeShape EntityType="CarCosmeticSalonModel.SocialMedia" Width="1.5" PointX="0.75" PointY="0.75" />
-        <EntityTypeShape EntityType="CarCosmeticSalonModel.sysdiagram" Width="1.5" PointX="0.75" PointY="8.75" />
-        <EntityTypeShape EntityType="CarCosmeticSalonModel.UserImage" Width="1.5" PointX="5.25" PointY="10.375" />
-        <EntityTypeShape EntityType="CarCosmeticSalonModel.UserInformation" Width="1.5" PointX="5.25" PointY="3.375" />
-        <EntityTypeShape EntityType="CarCosmeticSalonModel.User" Width="1.5" PointX="3" PointY="4" />
-        <EntityTypeShape EntityType="CarCosmeticSalonModel.UserType" Width="1.5" PointX="0.75" PointY="4.875" />
+        <EntityTypeShape EntityType="CarCosmeticSalonModel.Blog" Width="1.5" PointX="0.75" PointY="1.125" />
+        <EntityTypeShape EntityType="CarCosmeticSalonModel.BlogImage" Width="1.5" PointX="3" PointY="1" />
+        <EntityTypeShape EntityType="CarCosmeticSalonModel.Order" Width="1.5" PointX="8.25" PointY="4.125" />
+        <EntityTypeShape EntityType="CarCosmeticSalonModel.OrdersInformation" Width="1.5" PointX="10.5" PointY="5.25" />
+        <EntityTypeShape EntityType="CarCosmeticSalonModel.OrdersTemplate" Width="1.5" PointX="6" PointY="6.75" />
+        <EntityTypeShape EntityType="CarCosmeticSalonModel.OrdersTemplateImage" Width="1.5" PointX="8.25" PointY="9.5" />
+        <EntityTypeShape EntityType="CarCosmeticSalonModel.OrdersTemplateInformation" Width="1.5" PointX="8.25" PointY="0.75" />
+        <EntityTypeShape EntityType="CarCosmeticSalonModel.OrdersTemplateSet" Width="1.5" PointX="8.25" PointY="12.25" />
+        <EntityTypeShape EntityType="CarCosmeticSalonModel.SocialMedia" Width="1.5" PointX="0.75" PointY="9.875" />
+        <EntityTypeShape EntityType="CarCosmeticSalonModel.sysdiagram" Width="1.5" PointX="10.75" PointY="0.875" />
+        <EntityTypeShape EntityType="CarCosmeticSalonModel.UserImage" Width="1.5" PointX="5.25" PointY="3.875" />
+        <EntityTypeShape EntityType="CarCosmeticSalonModel.UserInformation" Width="1.5" PointX="5.25" PointY="11.75" />
+        <EntityTypeShape EntityType="CarCosmeticSalonModel.User" Width="1.5" PointX="3" PointY="4.375" />
+        <EntityTypeShape EntityType="CarCosmeticSalonModel.UserType" Width="1.5" PointX="0.75" PointY="5.375" />
         <AssociationConnector Association="CarCosmeticSalonModel.FK__BlogImage__BlogI__4F47C5E3" />
-        <AssociationConnector Association="CarCosmeticSalonModel.FK__Orders__OrderTem__318258D2" />
-        <AssociationConnector Association="CarCosmeticSalonModel.FK__Orders__UserId__308E3499" />
-        <AssociationConnector Association="CarCosmeticSalonModel.FK__OrdersInf__Order__44952D46" />
-        <AssociationConnector Association="CarCosmeticSalonModel.FK__OrdersTem__Order__3A179ED3" />
-        <AssociationConnector Association="CarCosmeticSalonModel.FK__OrdersTem__Order__3FD07829" />
-        <AssociationConnector Association="CarCosmeticSalonModel.FK__UserImage__UserI__3CF40B7E" />
-        <AssociationConnector Association="CarCosmeticSalonModel.FK__UserInfor__UserI__345EC57D" />
-        <AssociationConnector Association="CarCosmeticSalonModel.FK__Users__UserTypeI__2BC97F7C" />
+        <AssociationConnector Association="CarCosmeticSalonModel.FK__Orders__CreateOr__02925FBF" />
+        <AssociationConnector Association="CarCosmeticSalonModel.FK__Orders__OrderTem__038683F8" />
+        <AssociationConnector Association="CarCosmeticSalonModel.FK__Orders__UserId__019E3B86" />
+        <AssociationConnector Association="CarCosmeticSalonModel.FK__OrdersInf__Order__093F5D4E" />
+        <AssociationConnector Association="CarCosmeticSalonModel.FK__OrdersTem__Order__0C1BC9F9" />
+        <AssociationConnector Association="CarCosmeticSalonModel.FK__OrdersTem__Order__11D4A34F" />
+        <AssociationConnector Association="CarCosmeticSalonModel.FK__UserImage__UserI__0EF836A4" />
+        <AssociationConnector Association="CarCosmeticSalonModel.FK__UserInfor__UserI__0662F0A3" />
+        <AssociationConnector Association="CarCosmeticSalonModel.FK__Users__UserTypeI__7814D14C" />
+        <AssociationConnector Association="CarCosmeticSalonModel.OrdersTemplateOrdersSet" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

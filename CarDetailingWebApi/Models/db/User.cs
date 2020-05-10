@@ -18,6 +18,7 @@ namespace CarDetailingWebApi.Models.db
         public User()
         {
             this.Orders = new HashSet<Order>();
+            this.Orders1 = new HashSet<Order>();
             this.UserImages = new HashSet<UserImage>();
             this.UserInformations = new HashSet<UserInformation>();
         }
@@ -34,6 +35,8 @@ namespace CarDetailingWebApi.Models.db
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Order> Orders { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Order> Orders1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserImage> UserImages { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -62,5 +62,53 @@ namespace CarDetailingWebApi.Models
             }
             return R;
         }
+
+        public Result<List<Order>> Get(bool Done)
+        {
+            using (CarCosmeticSalonEntities db = new CarCosmeticSalonEntities())
+            {
+                db.Configuration.LazyLoadingEnabled = false;
+                var r = new Result<List<Order>>();
+                r.info = "get Done "+ Done;
+                r.status = true;
+                r.value = db.Orders.Where(e=>e.IsOrderCompleted== Done).ToList();
+                foreach (var l in r.value)
+                {
+                    var pom = OTempRepository.GetById(l.OrderTemplateId);
+                    //var user = usersRepo.GetById(l.UserId);
+                    //var userCreate
+                    if (pom.status)
+                    {
+                        l.OrdersTemplate = pom.value;
+                    }
+
+                }
+                return r;
+            }
+        }
+
+        public Result<List<Order>> GetStarted(bool started)
+        {
+            using (CarCosmeticSalonEntities db = new CarCosmeticSalonEntities())
+            {
+                db.Configuration.LazyLoadingEnabled = false;
+                var r = new Result<List<Order>>();
+                r.info = "get Started "+started;
+                r.status = true;
+                r.value = db.Orders.Where(e => e.IsOrderStarted == started).ToList();
+                foreach (var l in r.value)
+                {
+                    var pom = OTempRepository.GetById(l.OrderTemplateId);
+                    //var user = usersRepo.GetById(l.UserId);
+                    //var userCreate
+                    if (pom.status)
+                    {
+                        l.OrdersTemplate = pom.value;
+                    }
+
+                }
+                return r;
+            }
+        }
     }
 }

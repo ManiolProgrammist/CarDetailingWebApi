@@ -20,6 +20,7 @@ namespace CarDetailingWebApi.Models.db
             this.Orders = new HashSet<Order>();
             this.OrdersTemplateInformations = new HashSet<OrdersTemplateInformation>();
             this.OrdersTemplateImages = new HashSet<OrdersTemplateImage>();
+            this.OrdersTemplateSets = new HashSet<OrdersTemplateSet>();
         }
     
         public int OrderTemplateId { get; set; }
@@ -35,5 +36,7 @@ namespace CarDetailingWebApi.Models.db
         public virtual ICollection<OrdersTemplateInformation> OrdersTemplateInformations { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrdersTemplateImage> OrdersTemplateImages { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<OrdersTemplateSet> OrdersTemplateSets { get; set; }
     }
 }

@@ -183,6 +183,9 @@
     <Compile Include="Models\db\OrdersTemplateInformation.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\db\OrdersTemplateSet.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\db\SocialMedia.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>

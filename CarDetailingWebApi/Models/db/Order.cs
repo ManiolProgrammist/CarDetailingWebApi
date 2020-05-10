@@ -27,12 +27,16 @@ namespace CarDetailingWebApi.Models.db
         public System.DateTime OrderDate { get; set; }
         public Nullable<System.DateTime> ExpectedStartOfOrder { get; set; }
         public Nullable<System.DateTime> CompletedOrderDate { get; set; }
+        public Nullable<System.DateTime> StartOfOrder { get; set; }
+        public Nullable<int> delays { get; set; }
         public Nullable<decimal> Cost { get; set; }
         public bool IsOrderCompleted { get; set; }
         public bool IsOrderStarted { get; set; }
+        public bool IsPaid { get; set; }
     
-        public virtual OrdersTemplate OrdersTemplate { get; set; }
         public virtual User User { get; set; }
+        public virtual OrdersTemplate OrdersTemplate { get; set; }
+        public virtual User User1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrdersInformation> OrdersInformations { get; set; }
     }

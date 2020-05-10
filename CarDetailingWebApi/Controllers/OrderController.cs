@@ -25,6 +25,33 @@ namespace CarDetailingWebApi.Controllers
         {
             return _orderService.Get();
         }
+        [HttpGet]
+        [Route(("api/Order/FiltrDone/{Done}"))] //zlecenia skończone/nie skończone
+        public Result<List<Order>> Get(bool Done)
+        {
+            return _orderService.Get(Done);
+        }
+        [HttpGet]
+        [Route(("api/Order/FiltrStarted/{Started}"))] //zlecenia zaczęte/nie zaczęte
+        public Result<List<Order>> GetStarted(bool Started)
+        {
+            return _orderService.GetStarted(Started);
+        }
+
+        [HttpPut]
+        [Route("api/Order/Start/{start}")]
+        public Result<Order> StartOrder([FromBody] Order order,bool start)
+        {
+            return _orderService.StartOrder(order.OrderId, start);
+        }
+
+        [HttpPut]
+        [Route("api/Order/End/{end}")]
+        public Result<Order> EndOrder([FromBody] Order order, bool end)
+        {
+            return _orderService.EndOrder(order.OrderId, end);
+        }
+
 
         // GET: api/Order/5
         public Result<Order> Get(int id)
