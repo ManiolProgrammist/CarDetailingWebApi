@@ -11,5 +11,7 @@ namespace CarDetailingWebApi.Models
     {
         Result<User> Login(string login, string password);
         Boolean UserExist(string login);
+        Result<User> GetByLogin(string login);
+        Result<int> GetIdByLogin(string login);
     }
 }

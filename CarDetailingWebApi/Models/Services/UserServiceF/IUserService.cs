@@ -1,4 +1,4 @@
-﻿using CarDetailingWebApi.Models.Authentication;
+﻿
 using CarDetailingWebApi.Models.db;
 using CarDetailingWebApi.Models.HelpModels;
 
@@ -12,5 +12,6 @@ namespace CarDetailingWebApi.Models
         AuthorizationEnum CheckAuthority(string username, string password);
         Result<User> Add(RegisterUserModel item);
         bool CheckIfUserRightsChanged(User us);
+        Result<User> GetByLogin(string login);
     }
 }

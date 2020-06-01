@@ -34,7 +34,6 @@ namespace CarDetailingWebApi.Models.db
         public virtual DbSet<OrdersTemplateInformation> OrdersTemplateInformations { get; set; }
         public virtual DbSet<OrdersTemplateSet> OrdersTemplateSets { get; set; }
         public virtual DbSet<SocialMedia> SocialMedias { get; set; }
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<UserImage> UserImages { get; set; }
         public virtual DbSet<UserInformation> UserInformations { get; set; }
         public virtual DbSet<User> Users { get; set; }

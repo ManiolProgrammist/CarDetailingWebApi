@@ -1,5 +1,5 @@
 ﻿using CarDetailingWebApi.Models;
-using CarDetailingWebApi.Models.AuthenticationAtributes;
+
 using CarDetailingWebApi.Models.db;
 using CarDetailingWebApi.Models.Services.OrderTemplateServicesF;
 using System;
@@ -25,11 +25,11 @@ namespace CarDetailingWebApi.Controllers
         }
 
         // GET: api/OrderTemplate/5
-        public string Get(int id)
+        public Result<OrdersTemplate> Get(int id)
         {
-            return "value";
+            return orderServices.GetById(id);
         }
-        [EmployeeAuthentication]
+        [Authorize(Roles = "Employee, Admin")]
         // POST: api/OrderTemplate
         public Result<OrdersTemplate> Post([FromBody]OrdersTemplate value)
         {
@@ -37,15 +37,15 @@ namespace CarDetailingWebApi.Controllers
         }
 
         // PUT: api/OrderTemplate/5
-        [EmployeeAuthentication]
+        [Authorize(Roles = "Employee, Admin")]
         public Result<OrdersTemplate> Put(int id, [FromBody]OrdersTemplate value)
         {
             
             return orderServices.Update(value);
         }
-
+        [Authorize(Roles = "Employee, Admin")]
         // DELETE: api/OrderTemplate/5
-        [EmployeeAuthentication]
+
         public Result<OrdersTemplate> Delete(int id)
         {
             return orderServices.Remove(id);

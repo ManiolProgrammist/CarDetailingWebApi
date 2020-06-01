@@ -13,5 +13,6 @@ namespace CarDetailingWebApi.Models
         Result<List<Order>> GetStarted(bool started);
         Result<Order> StartOrder(int orderId, bool start);
         Result<Order> EndOrder(int orderId, bool end);
+        Result<Order> PaidOrder(int orderId,bool paid);
     }
 }

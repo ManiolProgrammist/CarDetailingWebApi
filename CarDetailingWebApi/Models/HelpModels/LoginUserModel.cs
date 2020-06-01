@@ -8,6 +8,7 @@ namespace CarDetailingWebApi.Models
     public class LoginUserModel
     {
         public string password;
+
         public string login;
     }
 }

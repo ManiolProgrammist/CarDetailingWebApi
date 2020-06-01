@@ -54,19 +54,19 @@ namespace CarDetailingWebApi.Models
         }
         public Result<User> Add(User item)
         {
-           return _userRepository.Add(item);
+           return retWithoutPassword(_userRepository.Add(item));
         }
         //zrób validację
         public Result<User> Add(RegisterUserModel item)
         {
-            var r = new Result<User>();
-            if (!_userRepository.UserExist(item.login))
+        
+            if (!_userRepository.UserExist(item.Login))
             {
-                User u = new User() {UserTypeId=2, Password = item.password, Login = item.login, Email = item.email, FirstName = item.firstName, Surname = item.surname,PhoneNumber=item.phoneNumber };
+                User u = new User() {UserTypeId=2, Password = item.Password, Login = item.Login, Email = item.Email, FirstName = item.FirstName, Surname = item.Surname, PhoneNumber=item.PhoneNumber };
 
-                r = _userRepository.Add(u);
-                return r;
+                return retWithoutPassword(_userRepository.Add(u));
             }
+            var r = new Result<User>();
             r.info = "taki użytkownik istnieje";
             r.status = false;
             return r;
@@ -74,24 +74,44 @@ namespace CarDetailingWebApi.Models
 
         public Result<List<User>> Get()
         {
-        
-            return _userRepository.Get();
+            var r = _userRepository.Get();
+            foreach (var u in r.value)
+            {
+                u.Password = "";
+            }
+            return r;
         }
 
         public Result<User> GetById(int id)
         {
-            return _userRepository.GetById(id);
+  
+            return retWithoutPassword(_userRepository.GetById(id));
         }
 
         public Result<User> Remove(int id)
         {
-
-            return _userRepository.Remove(id);
+        
+           return retWithoutPassword(_userRepository.Remove(id));
         }
 
+        //update info -> not password
         public Result<User> Update(User item)
         {
-            return _userRepository.Update(item);
+            
+            if (item.Password == "")
+            {
+                item.Password=_userRepository.GetById(item.UserId).value.Password;
+            }
+            return retWithoutPassword(_userRepository.Update(item));
+        }
+        public Result<User> UpdatePassword(User item,string password)
+        {
+            item.Password = password;
+            return retWithoutPassword(_userRepository.Update(item));
+        }
+        public Result<User> GetByLogin(string login)
+        {
+            return retWithoutPassword(_userRepository.GetByLogin(login));
         }
 
         public bool CheckIfUserRightsChanged(User us)
@@ -99,6 +119,12 @@ namespace CarDetailingWebApi.Models
             var us2 = GetById(us.UserId);
             return us2.value.UserTypeId != us.UserTypeId;
         }
+        private Result<User> retWithoutPassword(Result<User> us)
+        {
+            us.value.Password = "";
+            return us;
+        }
+
     }
 
 

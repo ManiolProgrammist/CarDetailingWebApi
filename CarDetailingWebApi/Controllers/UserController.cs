@@ -1,8 +1,6 @@
 ﻿using CarDetailingWebApi.Models;
-using CarDetailingWebApi.Models.Authentication;
-using CarDetailingWebApi.Models.AuthenticationAtributes;
 using CarDetailingWebApi.Models.db;
-
+using Microsoft.AspNet.Identity;
 using Ninject;
 using System;
 using System.Collections.Generic;
@@ -10,6 +8,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Reflection;
+using System.Security.Claims;
 using System.Web.Http;
 
 namespace CarDetailingWebApi.Controllers
@@ -24,25 +23,38 @@ namespace CarDetailingWebApi.Controllers
             //kernel.Load(Assembly.GetExecutingAssembly());
             //var UserRepo = kernel.Get<IRepository<User>>("UsersRepo");
         }
-        [EmployeeAuthentication]
+        //[EmployeeAuthentication]
+        [Authorize(Roles = "Employee, Admin")]
         // GET: api/User
         public Result<List<User>> Get()
         {
             return _userServices.Get();
         }
 
-        [EmployeeAuthentication]
+        //[EmployeeAuthentication]
+        [Authorize(Roles ="Employee, Admin")]
         // GET: api/User/5
         public Result<User> Get(int id)
         {
+            var identity = (ClaimsIdentity)User.Identity;
+           
             return _userServices.GetById(id);
         }
+        //[HttpGet]
+        //[Route(("api/LoginUser/{login}/{haslo}"))]
+        //public Result<User> LoginUser(string login, string haslo)
+        //{
+
+        //    return _userServices.Login(login, haslo);
+        //}
+
+        [Authorize(Roles = "Employee, Admin, Normal User, Temporary User")]
         [HttpGet]
-        [Route(("api/LoginUser/{login}/{haslo}"))]
-        public Result<User> LoginUser(string login,string haslo)
+        [Route(("api/LogInfo"))]
+        public Result<User> GetLogInfo()
         {
-            
-            return _userServices.Login(login, haslo);
+            var identity = (ClaimsIdentity)User.Identity;
+            return _userServices.GetByLogin(identity.Name);
         }
 
         // POST: api/User
@@ -51,7 +63,7 @@ namespace CarDetailingWebApi.Controllers
             return _userServices.Add(value);
         }
 
-        [EmployeeAuthentication]
+
         // PUT: api/User/5
         [HttpPut]
         [Route("api/UserEditByEmp/{id}")]
@@ -72,7 +84,6 @@ namespace CarDetailingWebApi.Controllers
             }
         }
 
-        [AdminAuthentication]
         [HttpPut]
         [Route("api/UserEditByAdm/{id}")]
         public Result<User> EditUserByAdm(int id, [FromBody]User value)
@@ -80,7 +91,7 @@ namespace CarDetailingWebApi.Controllers
             value.UserId = id;
             return _userServices.Update(value);
         }
-        [EmployeeAuthentication]
+
         // DELETE: api/User/5
         public Result<User> Delete(int id)
         {

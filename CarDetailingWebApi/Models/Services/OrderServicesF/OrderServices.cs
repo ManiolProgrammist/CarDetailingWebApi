@@ -15,7 +15,10 @@ namespace CarDetailingWebApi.Models
         }
         public Result<Order> Add(Order item)
         {
-           return _orderRepository.Add(item);
+            //TODO: Czy w tych godzinach nie ma problemu z zrobieniem
+            //TODO: Czy user istnieje
+            item.OrderDate = System.DateTime.Now;
+            return _orderRepository.Add(item);
         }
 
    
@@ -77,6 +80,13 @@ namespace CarDetailingWebApi.Models
         public Result<Order> Update(Order item)
         {
             return _orderRepository.Update(item);
+        }
+
+        public Result<Order> PaidOrder(int orderId, bool paid)
+        {
+            var r = this.GetById(orderId);
+            r.value.IsPaid = paid;
+            return this.Update(r.value);
         }
     }
 }

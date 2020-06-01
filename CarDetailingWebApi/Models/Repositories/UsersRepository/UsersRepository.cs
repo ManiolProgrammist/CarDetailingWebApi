@@ -34,8 +34,9 @@ namespace CarDetailingWebApi.Models
         public new Result<User> Add(User item)
         {
             item.AccoutCreateDate = DateTime.Now;
-            return base.Add(item);
-
+            var r= base.Add(item);
+    
+            return r;
         }
 
         public new Result<List<User>> Get()
@@ -51,6 +52,7 @@ namespace CarDetailingWebApi.Models
 
                     u.UserType = (UserType)( db.UserTypes.FirstOrDefault(v => v.UserTypeId == u.UserTypeId));
                     u.UserType.Users = null;
+           
                 }
                 return r;
             }
@@ -75,5 +77,50 @@ namespace CarDetailingWebApi.Models
                 return db.Users.Any(u => u.Login == login);
             }
         }
+
+        public Result<User> GetByLogin(string login)
+        {
+            using (CarCosmeticSalonEntities db = new CarCosmeticSalonEntities())
+            {
+                db.Configuration.LazyLoadingEnabled = false;
+                var r = new Result<User>();
+                r.value = db.Users.FirstOrDefault(u => u.Login == login);
+                if (r.value != null)
+                {
+                    r.info = "znaleziono użytkownika";
+                    r.status = true;
+                    r.value.UserType = db.UserTypes.FirstOrDefault(u => u.UserTypeId == r.value.UserTypeId);
+                }
+                else
+                {
+                    r.info = "nie znaleziono użytkownika";
+                    r.status = false;
+                }
+                return r;
+            }
+        }
+
+        public Result<int> GetIdByLogin(string login)
+        {
+            using (CarCosmeticSalonEntities db = new CarCosmeticSalonEntities())
+            {
+                var r = new Result<int>();
+                var i = db.Users.FirstOrDefault(u => u.Login == login).UserId;
+                if (i == 0)
+                {
+                    r.info = "brak użytkownika o takim loginie";
+                    r.status = false;
+                }
+                else
+                {
+                    r.info = "znaleziono id użytkownika";
+                    r.status = true;
+                    r.value = i;
+                }
+
+                return r;
+            }
+        }
+
     }
 }

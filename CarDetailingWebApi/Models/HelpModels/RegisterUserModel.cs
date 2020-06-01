@@ -7,11 +7,11 @@ namespace CarDetailingWebApi.Models
 {
     public class RegisterUserModel
     {
-        public string login;
-        public string password;
-        public string email;
-        public string firstName;
-        public string surname;
-        public string phoneNumber;
+        public string Login;
+        public string Password;
+        public string Email;
+        public string FirstName;
+        public string Surname;
+        public string PhoneNumber;
     }
 }
