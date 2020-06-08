@@ -10,8 +10,9 @@ namespace CarDetailingWebApi.Models
     {
         Result<User> Login(string username, string password);
         AuthorizationEnum CheckAuthority(string username, string password);
-        Result<User> Add(RegisterUserModel item);
+        Result<User> Add(RegisterUserModel item, bool IsTemporary = false);
         bool CheckIfUserRightsChanged(User us);
         Result<User> GetByLogin(string login);
+        Result<User> CreateTemporaryUser(string Email);
     }
 }

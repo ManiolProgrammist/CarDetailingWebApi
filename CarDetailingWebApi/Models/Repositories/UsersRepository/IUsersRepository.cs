@@ -13,5 +13,6 @@ namespace CarDetailingWebApi.Models
         Boolean UserExist(string login);
         Result<User> GetByLogin(string login);
         Result<int> GetIdByLogin(string login);
+        bool IsFirstUser();
     }
 }

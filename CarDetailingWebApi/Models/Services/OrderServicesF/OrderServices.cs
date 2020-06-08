@@ -9,8 +9,10 @@ namespace CarDetailingWebApi.Models
     public class OrderServices : IOrderServices
     {
         IOrdersRepository _orderRepository;
-        public OrderServices(IOrdersRepository r)
+        IUserService _userService;
+        public OrderServices(IOrdersRepository r, IUserService userService)
         {
+            _userService = userService;
             _orderRepository = r;
         }
         public Result<Order> Add(Order item)
@@ -18,75 +20,144 @@ namespace CarDetailingWebApi.Models
             //TODO: Czy w tych godzinach nie ma problemu z zrobieniem
             //TODO: Czy user istnieje
             item.OrderDate = System.DateTime.Now;
-            return _orderRepository.Add(item);
+            item.ExpectedStartOfOrder = item.ExpectedStartOfOrder.Value.ToLocalTime();
+            var r = _orderRepository.Add(item);
+            if (r.status)
+            {
+                r.value.User = _userService.GetById(r.value.UserId).value;
+            }
+            return r;
         }
 
-   
 
         public Result<List<Order>> Get()
         {
-            return _orderRepository.Get();
+            var r = _orderRepository.Get();
+
+            foreach (var rv in r.value)
+            {
+                rv.User = _userService.GetById(rv.UserId).value;
+            }
+            return r;
+        }
+        public Result<List<Order>> GetByUserId(int id)
+        {
+            var r = _orderRepository.GetByUserId(id);
+            if (r.status)
+            {
+                foreach (var rv in r.value)
+                {
+                    rv.User = _userService.GetById(rv.UserId).value;
+                }
+            }
+            return r;
+
         }
 
         public Result<List<Order>> Get(bool done)
         {
-            return _orderRepository.Get(done);
+            var r = _orderRepository.Get(done);
+            foreach (var rv in r.value)
+            {
+                rv.User = _userService.GetById(rv.UserId).value;
+            }
+            return r;
         }
 
         public Result<Order> GetById(int id)
         {
-            return _orderRepository.GetById(id);
+            var r = _orderRepository.GetById(id);
+            if (r.status)
+            {
+                r.value.User = _userService.GetById(r.value.UserId).value;
+            }
+            return r;
         }
 
         public Result<List<Order>> GetStarted(bool started)
         {
-            return _orderRepository.GetStarted(started);
+
+            var r = _orderRepository.GetStarted(started);
+            foreach (var rv in r.value)
+            {
+                rv.User = _userService.GetById(rv.UserId).value;
+            }
+            return r;
         }
 
         public Result<Order> Remove(int id)
         {
-            return _orderRepository.Remove(id);
+            var r = _orderRepository.Remove(id);
+            if (r.status)
+            {
+                r.value.User = _userService.GetById(r.value.UserId).value;
+
+            }
+            return r;
+
         }
 
         public Result<Order> StartOrder(int orderId, bool start) //bool w razie pomyłki pracownika- może to cofnąć
         {
-            var r = this.GetById(orderId);
-            if (start)
+            var r = _orderRepository.GetById(orderId);
+            if (r.status)
             {
-                r.value.StartOfOrder = System.DateTime.Now;
+                if (start)
+                {
+                    r.value.StartOfOrder = System.DateTime.Now;
+                }
+                else
+                {
+                    r.value.StartOfOrder = null;
+                }
+                r.value.IsOrderStarted = start;
+
+                return this.Update(r.value);
             }
             else
             {
-                r.value.StartOfOrder = null;
+                return r;
             }
-            r.value.IsOrderStarted = start;
-            return this.Update(r.value);
 
         }
         public Result<Order> EndOrder(int orderId, bool end)
         {
-            var r = this.GetById(orderId);
-            if (end)
+            var r = _orderRepository.GetById(orderId);
+            if (r.status)
             {
-                r.value.CompletedOrderDate = System.DateTime.Now;
+                if (end)
+                {
+                    r.value.CompletedOrderDate = System.DateTime.Now;
+                }
+                else
+                {
+                    r.value.CompletedOrderDate = null;
+                }
+                r.value.IsOrderCompleted = end;
+
+                return this.Update(r.value);
             }
             else
             {
-                r.value.CompletedOrderDate = null;
+                return r;
             }
-            r.value.IsOrderCompleted = end;
-            return this.Update(r.value);
         }
         public Result<Order> Update(Order item)
         {
-            return _orderRepository.Update(item);
+            var r = _orderRepository.Update(item);
+            if (r.status)
+            {
+                r.value.User = _userService.GetById(r.value.UserId).value;
+            }
+            return r;
         }
 
         public Result<Order> PaidOrder(int orderId, bool paid)
         {
-            var r = this.GetById(orderId);
+            var r = _orderRepository.GetById(orderId);
             r.value.IsPaid = paid;
             return this.Update(r.value);
         }
+
     }
 }

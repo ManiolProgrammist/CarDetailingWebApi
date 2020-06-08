@@ -56,12 +56,24 @@ namespace CarDetailingWebApi.Controllers
             var identity = (ClaimsIdentity)User.Identity;
             return _userServices.GetByLogin(identity.Name);
         }
+        [HttpPost]
+        [Route("api/User")]
 
         // POST: api/User
         public Result<User> Post([FromBody]RegisterUserModel value)
         {
             return _userServices.Add(value);
         }
+
+        //[HttpPost]
+        //[Route("api/TempUser")]
+        //public Result<User> PostTempUs([FromBody]string email)
+        //{
+        //    return _userServices.CreateTemporaryUser(email);
+        //}
+
+
+
 
 
         // PUT: api/User/5

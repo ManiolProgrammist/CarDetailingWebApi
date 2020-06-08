@@ -1,3 +1,4 @@
+Create Database CarCosmeticSalon;
 use CarCosmeticSalon;
 -- drop table OrdersTemplateOrdersSet;
 -- go
@@ -34,30 +35,17 @@ AccessRights int not null, -- 1 temporary user,2 user,3 employee,4 admin
 Name nvarchar(255) not null
 );
 
--- Create Table Users (
--- UserId int NOT NULL IDENTITY    PRIMARY KEY,
--- Login nvarchar(254) NOT NULL,
--- Password nvarchar(254) NOT NULL,
--- Email nvarchar(254) NOT NULL,
--- FirstName nvarchar(254) NOT NULL,
--- Surname nvarchar(254) NOT NULL,
--- PhoneNumber varchar(15) NOT NULL,
--- AccoutCreateDate DATETIME NOT NULL,
--- UserTypeId int foreign key references UserType(UserTypeID));
+ Create Table Users (
+ UserId int NOT NULL IDENTITY    PRIMARY KEY,
+ Login nvarchar(254) NOT NULL,
+ Password nvarchar(254) NOT NULL,
+ Email nvarchar(254) NOT NULL,
+ FirstName nvarchar(254) NOT NULL,
+ Surname nvarchar(254) NOT NULL,
+ PhoneNumber varchar(15) NOT NULL,
+ AccoutCreateDate DATETIME NOT NULL,
+ UserTypeId int foreign key references UserType(UserTypeID));
 
-
---Create Table Users (
---UserId int NOT NULL IDENTITY    PRIMARY KEY,
---Login nvarchar(254) NOT NULL,
---Password nvarchar(254) NOT NULL,
---Email nvarchar(254) NOT NULL,
---FirstName nvarchar(254) NOT NULL,
---Surname nvarchar(254) NOT NULL,
---PhoneNumber varchar(15) NOT NULL,
---AccoutCreateDate DATETIME NOT NULL,
---IsAdmin bit NOT NULL,
---IsEmployee bit NOT NULL,
---IsTemporary bit NOT NULL);
 
 Create Table OrdersTemplate(
 OrderTemplateId int not null identity primary key,
@@ -85,9 +73,9 @@ UserId  int NOT NULL foreign key references Users(UserId),
 CreateOrderUserId  int NOT NULL foreign key references Users(UserId),
 OrderTemplateId  int NOT NULL foreign key references OrdersTemplate(OrderTemplateId),
 OrderDate DATETIME NOT NULL,
-ExpectedStartOfOrder DATE NULL,
+ExpectedStartOfOrder DATETIME NULL,
 CompletedOrderDate DATETIME NULL,
-StartOfOrder DATE NULL,
+StartOfOrder DATETIME NULL,
 delays int NULL,
 Cost money null,
 IsOrderCompleted bit not null,
@@ -160,30 +148,30 @@ Insert Into UserType(AccessRights,Name) values (4,'Admin');
 
 select * from UserType;
 
-Insert Into Users(
-Login,Password,Email,FirstName,Surname,PhoneNumber,AccoutCreateDate,UserTypeId) 
-values ('Admin','Admin','p.trzeciak666@gmail.com','Patryk','Trzeciak',
-'790821390',GETDATE(),4);
-Insert Into Users(
-Login,Password,Email,FirstName,Surname,PhoneNumber,AccoutCreateDate,UserTypeId ) 
-values ('User1','User1','p.trzeciak666@gmail.com','Patryk1','Trzeciak1',
-'790821391',GETDATE(),2);
-Insert Into Users(
-Login,Password,Email,FirstName,Surname,PhoneNumber,AccoutCreateDate,UserTypeId ) 
-values ('Employee1','Employee1','p.trzeciak666@gmail.com','Patryk1','Trzeciak1',
-'790821391',GETDATE(),3);
-select * from users;
+--Insert Into Users(
+--Login,Password,Email,FirstName,Surname,PhoneNumber,AccoutCreateDate,UserTypeId) 
+--values ('Admin','Admin','p.trzeciak666@gmail.com','Patryk','Trzeciak',
+--'790821390',GETDATE(),4);
+--Insert Into Users(
+--Login,Password,Email,FirstName,Surname,PhoneNumber,AccoutCreateDate,UserTypeId ) 
+--values ('User1','User1','p.trzeciak666@gmail.com','Patryk1','Trzeciak1',
+--'790821391',GETDATE(),2);
+--Insert Into Users(
+--Login,Password,Email,FirstName,Surname,PhoneNumber,AccoutCreateDate,UserTypeId ) 
+--values ('Employee1','Employee1','p.trzeciak666@gmail.com','Patryk1','Trzeciak1',
+--'790821391',GETDATE(),3);
+--select * from users;
 
 
-Insert Into Orders
-(UserId,CreateOrderUserId,OrderTemplateId,OrderDate,Cost,IsOrderCompleted,IsOrderStarted, IsPaid)
-Values(2,2,3,GETDATE(),100,0,0,0);
-Insert Into Orders
-(UserId,CreateOrderUserId,OrderTemplateId,OrderDate,Cost,IsOrderCompleted,IsOrderStarted,IsPaid)
-Values(3,1,2,GETDATE(),100,0,0,0);
-Insert Into Orders
-(UserId,CreateOrderUserId,OrderTemplateId,OrderDate,Cost,IsOrderCompleted,IsOrderStarted,IsPaid)
-Values(2,1,1,GETDATE(),100,0,0,0);
+--Insert Into Orders
+--(UserId,CreateOrderUserId,OrderTemplateId,OrderDate,Cost,IsOrderCompleted,IsOrderStarted, IsPaid)
+--Values(2,2,3,GETDATE(),100,0,0,0);
+--Insert Into Orders
+--(UserId,CreateOrderUserId,OrderTemplateId,OrderDate,Cost,IsOrderCompleted,IsOrderStarted,IsPaid)
+--Values(3,1,2,GETDATE(),100,0,0,0);
+--Insert Into Orders
+--(UserId,CreateOrderUserId,OrderTemplateId,OrderDate,Cost,IsOrderCompleted,IsOrderStarted,IsPaid)
+--Values(2,1,1,GETDATE(),100,0,0,0);
 
 
 select * from Orders;

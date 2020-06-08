@@ -9,28 +9,32 @@ namespace CarDetailingWebApi.Models
     public class OrdersRepository : Repository<Order>, IOrdersRepository
     {
         IOrdersTemplateRepository OTempRepository;
-        IUsersRepository usersRepo;
-        public OrdersRepository(IOrdersTemplateRepository ordersTemplate,IUsersRepository usersRepo)
-        {
+        //IUsersRepository usersRepo;
+        public OrdersRepository(IOrdersTemplateRepository ordersTemplate)
+        {//,IUsersRepository usersRepo
             OTempRepository = ordersTemplate;
-            this.usersRepo = usersRepo;
+           // this.usersRepo = usersRepo;
         }
         public new Result<List<Order>> Get()
         {
-            var Rlist=base.Get();
-            foreach(var l in Rlist.value)
+            var r=base.Get();
+            r.value = AddTemplateOrderToList(r.value);
+
+            return r;
+        }
+        public Result<List<Order>> GetByUserId(int id)
+        {
+            using (CarCosmeticSalonEntities db = new CarCosmeticSalonEntities())
             {
-                var pom = OTempRepository.GetById(l.OrderTemplateId);
-                //var user = usersRepo.GetById(l.UserId);
-                //var userCreate
-                if (pom.status)
-                {
-                    l.OrdersTemplate = pom.value;
-                }
+                db.Configuration.LazyLoadingEnabled = false;
+                var r = new Result<List<Order>>();
+                r.info = "get by user id " + id;
+                r.status = true;
                 
+                r.value = db.Orders.Where(e => e.UserId == id).ToList();
+                r.value = AddTemplateOrderToList(r.value);
+                return r;
             }
-            
-            return Rlist;
         }
         public new Result<Order> GetById(int id)
         {
@@ -38,8 +42,7 @@ namespace CarDetailingWebApi.Models
             if (R.status)
             {
                 var templ = OTempRepository.GetById(R.value.OrderTemplateId);
-                var user = usersRepo.GetById(R.value.UserId);
-                var userCreate = usersRepo.GetById(R.value.CreateOrderUserId);
+
                 List<OrdersInformation> info;
                 using (CarCosmeticSalonEntities db = new CarCosmeticSalonEntities())
                 {
@@ -50,15 +53,7 @@ namespace CarDetailingWebApi.Models
                 {
                     R.value.OrdersTemplate = templ.value;
                 }
-                if (user.status)
-                {
-                    R.value.User = user.value;
-                }
-                //TODO: dodaj userCreate jako referencje.
-                //if (userCreate.status)
-                //{
-                //    R.value.Crea
-                //}
+        
             }
             return R;
         }
@@ -72,21 +67,11 @@ namespace CarDetailingWebApi.Models
                 r.info = "get Done "+ Done;
                 r.status = true;
                 r.value = db.Orders.Where(e=>e.IsOrderCompleted== Done).ToList();
-                foreach (var l in r.value)
-                {
-                    var pom = OTempRepository.GetById(l.OrderTemplateId);
-                    //var user = usersRepo.GetById(l.UserId);
-                    //var userCreate
-                    if (pom.status)
-                    {
-                        l.OrdersTemplate = pom.value;
-                    }
-
-                }
+                r.value = AddTemplateOrderToList(r.value);
                 return r;
             }
         }
-
+      
         public Result<List<Order>> GetStarted(bool started)
         {
             using (CarCosmeticSalonEntities db = new CarCosmeticSalonEntities())
@@ -96,19 +81,24 @@ namespace CarDetailingWebApi.Models
                 r.info = "get Started "+started;
                 r.status = true;
                 r.value = db.Orders.Where(e => e.IsOrderStarted == started).ToList();
-                foreach (var l in r.value)
-                {
-                    var pom = OTempRepository.GetById(l.OrderTemplateId);
-                    //var user = usersRepo.GetById(l.UserId);
-                    //var userCreate
-                    if (pom.status)
-                    {
-                        l.OrdersTemplate = pom.value;
-                    }
-
-                }
+                r.value = AddTemplateOrderToList(r.value);
                 return r;
             }
+        }
+        private List<Order> AddTemplateOrderToList(List<Order> ord)
+        {
+            foreach (var l in ord)
+            {
+                var pom = OTempRepository.GetById(l.OrderTemplateId);
+                //var user = usersRepo.GetById(l.UserId);
+                //var userCreate
+                if (pom.status)
+                {
+                    l.OrdersTemplate = pom.value;
+                }
+
+            }
+            return ord;
         }
     }
 }

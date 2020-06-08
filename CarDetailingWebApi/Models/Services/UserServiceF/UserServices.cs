@@ -4,6 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Scrypt;
+using CarDetailingWebApi.Models.Services;
 
 namespace CarDetailingWebApi.Models
 {
@@ -56,13 +58,24 @@ namespace CarDetailingWebApi.Models
         {
            return retWithoutPassword(_userRepository.Add(item));
         }
-        //zrób validację
-        public Result<User> Add(RegisterUserModel item)
+        //zrób validację hasła czy wystarczy
+        public Result<User> Add(RegisterUserModel item,bool IsTemporary=false)
         {
-        
+          
             if (!_userRepository.UserExist(item.Login))
             {
-                User u = new User() {UserTypeId=2, Password = item.Password, Login = item.Login, Email = item.Email, FirstName = item.FirstName, Surname = item.Surname, PhoneNumber=item.PhoneNumber };
+                int userType =(int) AuthorizationEnum.NormalUser;//normal user
+                if (IsTemporary)
+                {
+                    userType = (int)AuthorizationEnum.TemporaryUser;
+                }
+           
+                if (_userRepository.IsFirstUser())
+                {
+                    userType = (int)AuthorizationEnum.AdminUser;  //admin
+                }
+                ScryptEncoder encoder = new ScryptEncoder();
+                User u = new User() {UserTypeId=userType, Password = encoder.Encode(item.Password), Login = item.Login, Email = item.Email, FirstName = item.FirstName, Surname = item.Surname, PhoneNumber=item.PhoneNumber };
 
                 return retWithoutPassword(_userRepository.Add(u));
             }
@@ -125,6 +138,32 @@ namespace CarDetailingWebApi.Models
             return us;
         }
 
+        public Result<User> CreateTemporaryUser(string Email)
+        {
+            UtilityService u = new UtilityService();
+            var Login = u.RandomString(6, true);
+            while (_userRepository.UserExist(Login))
+            {
+                Login = u.RandomString(6, true);
+            }
+            var password = u.RandomPassword();
+            RegisterUserModel us = new RegisterUserModel() {Password=password,Login=Login,PhoneNumber="111111111",Email= Email, FirstName="Brak",Surname="Brak" };
+            //tutaj wyślij na podanego emaila informacje o haśle i loginie!
+            var R = this.Add(us, true);
+            if (R.status)
+            {
+                var mess = "Login: " + Login+"\nPassword: "+password;
+
+                var mR=u.SendCompanyEmail(Email, mess);
+                if (!mR.status)
+                {
+                    this.Remove(R.value.UserId);
+                    R.status = false;
+                    R.value = null;
+                    R.info = "Nieprawidłowy email,"+mR.info;
+                }
+            }
+            return R;        }
     }
 
 

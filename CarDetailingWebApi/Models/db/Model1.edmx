@@ -29,9 +29,9 @@
           <Property Name="CreateOrderUserId" Type="int" Nullable="false" />
           <Property Name="OrderTemplateId" Type="int" Nullable="false" />
           <Property Name="OrderDate" Type="datetime" Nullable="false" />
-          <Property Name="ExpectedStartOfOrder" Type="date" />
+          <Property Name="ExpectedStartOfOrder" Type="datetime" />
           <Property Name="CompletedOrderDate" Type="datetime" />
-          <Property Name="StartOfOrder" Type="date" />
+          <Property Name="StartOfOrder" Type="datetime" />
           <Property Name="delays" Type="int" />
           <Property Name="Cost" Type="money" />
           <Property Name="IsOrderCompleted" Type="bit" Nullable="false" />
@@ -444,9 +444,9 @@ warning 6002: The table/view 'CarCosmeticSalon.dbo.OrdersTemplateOrdersSet' does
           <Property Name="CreateOrderUserId" Type="Int32" Nullable="false" />
           <Property Name="OrderTemplateId" Type="Int32" Nullable="false" />
           <Property Name="OrderDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ExpectedStartOfOrder" Type="DateTime" Precision="0" />
+          <Property Name="ExpectedStartOfOrder" Type="DateTime" Precision="3" />
           <Property Name="CompletedOrderDate" Type="DateTime" Precision="3" />
-          <Property Name="StartOfOrder" Type="DateTime" Precision="0" />
+          <Property Name="StartOfOrder" Type="DateTime" Precision="3" />
           <Property Name="delays" Type="Int32" />
           <Property Name="Cost" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="IsOrderCompleted" Type="Boolean" Nullable="false" />

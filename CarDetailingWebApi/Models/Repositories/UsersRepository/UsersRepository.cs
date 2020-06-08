@@ -4,38 +4,45 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-
+using Scrypt;
 namespace CarDetailingWebApi.Models
 {
-    public class UsersRepository :Repository<User>, IUsersRepository
+    public class UsersRepository : Repository<User>, IUsersRepository
     {
         public Result<User> Login(string login, string password)
         {
-            using(CarCosmeticSalonEntities db= new CarCosmeticSalonEntities())
+            using (CarCosmeticSalonEntities db = new CarCosmeticSalonEntities())
             {
                 db.Configuration.LazyLoadingEnabled = false;
                 var r = new Result<User>();
-                r.value = db.Users.FirstOrDefault(u => u.Login.Equals(login) && u.Password.Equals(password));
-                if(r.value!=null)
+                r.value = db.Users.FirstOrDefault(u => u.Login.Equals(login));
+                ScryptEncoder encoder = new ScryptEncoder();
+
+                if (r.value != null)
                 {
-                    r.value.UserType = db.UserTypes.FirstOrDefault(u => u.UserTypeId == r.value.UserTypeId);
-                    r.info = "zalogowany:";
-                    r.status = true;
+                    //porównaj czy hash w bazie zgadza się z zwykłym hasłem przesłanym przez użytkownika
+         
+                    if (encoder.Compare(password, r.value.Password))
+                    {
+                        r.value.UserType = db.UserTypes.FirstOrDefault(u => u.UserTypeId == r.value.UserTypeId);
+                        r.info = "zalogowany:";
+                        r.status = true;
+                        return r;
+                    }
                 }
-                else
-                {
-                    r.info = "Nie znaleziono użytkownika o podanym loginie i haśle";
-                    r.status = false;
-                }
-                
+                //przejdzie tutaj tylko jeśli A) nie znajdzie uzytkownika B) bedzie zle haslo
+                r.info = "Nie znaleziono użytkownika o podanym loginie i haśle";
+                r.status = false;
+
+
                 return r;
             }
         }
         public new Result<User> Add(User item)
         {
             item.AccoutCreateDate = DateTime.Now;
-            var r= base.Add(item);
-    
+            var r = base.Add(item);
+
             return r;
         }
 
@@ -46,13 +53,13 @@ namespace CarDetailingWebApi.Models
             using (CarCosmeticSalonEntities db = new CarCosmeticSalonEntities())
             {
                 db.Configuration.LazyLoadingEnabled = false;
-               
-                foreach( var u in r.value)
+
+                foreach (var u in r.value)
                 {
 
-                    u.UserType = (UserType)( db.UserTypes.FirstOrDefault(v => v.UserTypeId == u.UserTypeId));
+                    u.UserType = (UserType)(db.UserTypes.FirstOrDefault(v => v.UserTypeId == u.UserTypeId));
                     u.UserType.Users = null;
-           
+
                 }
                 return r;
             }
@@ -61,14 +68,14 @@ namespace CarDetailingWebApi.Models
         public new Result<User> GetById(int id)
         {
             var r = base.GetById(id);
-            
+
             using (CarCosmeticSalonEntities db = new CarCosmeticSalonEntities())
             {
                 db.Configuration.LazyLoadingEnabled = false;
                 r.value.UserType = db.UserTypes.FirstOrDefault(u => u.UserTypeId == r.value.UserTypeId);
             }
             return r;
-       
+
         }
         public bool UserExist(string login)
         {
@@ -99,7 +106,14 @@ namespace CarDetailingWebApi.Models
                 return r;
             }
         }
+        public bool IsFirstUser()
+        {
+            using (CarCosmeticSalonEntities db = new CarCosmeticSalonEntities())
+            {
+                return db.Users.Count() < 1;
+            }
 
+        }
         public Result<int> GetIdByLogin(string login)
         {
             using (CarCosmeticSalonEntities db = new CarCosmeticSalonEntities())
