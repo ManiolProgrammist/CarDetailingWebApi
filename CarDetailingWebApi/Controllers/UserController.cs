@@ -26,6 +26,7 @@ namespace CarDetailingWebApi.Controllers
         //[EmployeeAuthentication]
         [Authorize(Roles = "Employee, Admin")]
         // GET: api/User
+        [Route("api/User")]
         public Result<List<User>> Get()
         {
             return _userServices.Get();
