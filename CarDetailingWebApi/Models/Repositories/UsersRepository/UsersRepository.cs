@@ -40,8 +40,20 @@ namespace CarDetailingWebApi.Models
         }
         public new Result<User> Add(User item)
         {
-            item.AccoutCreateDate = DateTime.Now;
-            var r = base.Add(item);
+            var r = new Result<User>();
+            if (!UserExist(item.Login))
+            {
+                item.AccoutCreateDate = DateTime.Now;
+
+                 r = base.Add(item);
+
+            }
+            else
+            {
+
+                r.info = "uzytkownik istnieje";
+                r.status = false;
+            }
 
             return r;
         }

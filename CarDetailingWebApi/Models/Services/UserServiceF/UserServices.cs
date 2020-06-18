@@ -62,8 +62,8 @@ namespace CarDetailingWebApi.Models
         public Result<User> Add(RegisterUserModel item,bool IsTemporary=false)
         {
           
-            if (!_userRepository.UserExist(item.Login))
-            {
+            //if (!_userRepository.UserExist(item.Login))
+            //{
                 int userType =(int) AuthorizationEnum.NormalUser;//normal user
                 if (IsTemporary)
                 {
@@ -78,11 +78,11 @@ namespace CarDetailingWebApi.Models
                 User u = new User() {UserTypeId=userType, Password = encoder.Encode(item.Password), Login = item.Login, Email = item.Email, FirstName = item.FirstName, Surname = item.Surname, PhoneNumber=item.PhoneNumber };
 
                 return retWithoutPassword(_userRepository.Add(u));
-            }
-            var r = new Result<User>();
-            r.info = "taki użytkownik istnieje";
-            r.status = false;
-            return r;
+            //}
+            //var r = new Result<User>();
+            //r.info = "taki użytkownik istnieje";
+            //r.status = false;
+            //return r;
         }
 
         public Result<List<User>> Get()
@@ -134,7 +134,10 @@ namespace CarDetailingWebApi.Models
         }
         private Result<User> retWithoutPassword(Result<User> us)
         {
-            us.value.Password = "";
+            if (us.value != null)
+            {
+                us.value.Password = "";
+            }
             return us;
         }
 

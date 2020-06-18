@@ -18,6 +18,7 @@ namespace CarDetailingWebApi.Models.Services.OrderTemplateServicesF
         }
         public Result<OrdersTemplate> Add(OrdersTemplate item)
         {
+     
             var r = _ordersTRepository.GetByName(item.Name);
             //sprawdź czy nie ma tego samego NAME co jakiś inny element
             if (!r.status)
@@ -28,7 +29,7 @@ namespace CarDetailingWebApi.Models.Services.OrderTemplateServicesF
                     r.info = "Error: maxymalny koszt mniejszy od minimalnego";
                     return r;
                 }
-                
+                item.OrdersTemplateSets = null;
                 return _ordersTRepository.Add(item);
             }
             else

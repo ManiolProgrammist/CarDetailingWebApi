@@ -110,7 +110,7 @@ namespace CarDetailingWebApi.Controllers
         [Authorize]
         [HttpPost]
         [Route("api/Order")]
-        public Result<Order> Post([FromBody]Order value)
+        public Result<Order> Post([FromBody] Order value)
         {
             //if (value.ExpectedStartOfOrder != null)
             //{
@@ -128,12 +128,17 @@ namespace CarDetailingWebApi.Controllers
         [HttpPost]
         public Result<Order> PostFromTemporary([FromBody]OrderEmail value)
         {
-            var U = _userService.CreateTemporaryUser(value.email);
+            //TODO: Sprawdź Order przed CreateTemporaryUser 
+            var U = _userService.CreateTemporaryUser(value.email); //tutaj też wysyłamy emaila
             var R = new Result<Order>();
             if (U.status)
             {
                 value.order.UserId = U.value.UserId;
                 R= _orderService.Add(value.order);
+                if (R.status)
+                {//przesyłamy informacje o temporary userze spowrotem
+                    R.value.User = U.value;
+                }
                 return R;
             }
             R.status = false;

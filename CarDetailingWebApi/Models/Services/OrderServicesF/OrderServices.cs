@@ -21,6 +21,9 @@ namespace CarDetailingWebApi.Models
             //TODO: Czy user istnieje
             item.OrderDate = System.DateTime.Now;
             item.ExpectedStartOfOrder = item.ExpectedStartOfOrder.Value.ToLocalTime();
+            item.User = null;
+            item.OrdersTemplate = null;
+            
             var r = _orderRepository.Add(item);
             if (r.status)
             {

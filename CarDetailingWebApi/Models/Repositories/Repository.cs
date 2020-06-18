@@ -6,9 +6,9 @@ using System.Web;
 
 namespace CarDetailingWebApi.Models.Repositories
 {
-    public class Repository<T>:IRepository<T> where T:class
+    public class Repository<T> : IRepository<T> where T : class
     {
-     
+
         public Result<T> Add(T item) //    item.AccoutCreateDate = DateTime.Now; dla usera
         {
             using (CarCosmeticSalonEntities db = new CarCosmeticSalonEntities())
@@ -67,15 +67,15 @@ namespace CarDetailingWebApi.Models.Repositories
         public Result<T> Remove(int id)
         {
 
-            if (id != 0)
+            try
             {
                 T i;
                 using (CarCosmeticSalonEntities db = new CarCosmeticSalonEntities())
                 {
-                    T p =db.Set<T>().Find(id);
+                    T p = db.Set<T>().Find(id);
                     db.Configuration.LazyLoadingEnabled = false;
                     i = db.Set<T>().Remove(p);
-                    
+
                     db.SaveChanges();
                 }
                 Result<T> r = new Result<T>();
@@ -84,12 +84,12 @@ namespace CarDetailingWebApi.Models.Repositories
                 r.status = true;
                 return r;
             }
-            else
+            catch (Exception e)
             {
 
                 Result<T> r = new Result<T>();
                 r.value = null;
-                r.info = "error";
+                r.info = "error " + e.Message;
                 r.status = false;
                 return r;
             }
@@ -99,26 +99,38 @@ namespace CarDetailingWebApi.Models.Repositories
         {
             //var i = new T();
             Result<T> r = new Result<T>();
-            using (CarCosmeticSalonEntities db = new CarCosmeticSalonEntities())
+            try
             {
-                db.Configuration.LazyLoadingEnabled = false;
-                db.Entry(item).State = System.Data.Entity.EntityState.Modified;
-                ////i = db.Ts.Attach(item);
-                //i = db.Ts.Where(e => e.TId == item.TId).First();
-                //i.Email = item.Email;
-                //i.FirstName = item.FirstName;
-                //i.TTypeId = item.TTypeId;
-                //i.Login = item.Login;
-                //i.Password = item.Password;
-                //i.PhoneNumber = item.PhoneNumber;
-                //i.Surname = item.Surname;
-                db.SaveChanges();
-            }
 
-            r.value = item;
-            r.info = "test";
-            r.status = true;
-            return r;
-        }
+               
+                using (CarCosmeticSalonEntities db = new CarCosmeticSalonEntities())
+                {
+                    db.Configuration.LazyLoadingEnabled = false;
+                    db.Entry(item).State = System.Data.Entity.EntityState.Modified;
+                    ////i = db.Ts.Attach(item);
+                    //i = db.Ts.Where(e => e.TId == item.TId).First();
+                    //i.Email = item.Email;
+                    //i.FirstName = item.FirstName;
+                    //i.TTypeId = item.TTypeId;
+                    //i.Login = item.Login;
+                    //i.Password = item.Password;
+                    //i.PhoneNumber = item.PhoneNumber;
+                    //i.Surname = item.Surname;
+                    db.SaveChanges();
+                }
+
+                r.value = item;
+                r.info = "poprawnie dodane";
+                r.status = true;
+                return r;
+            }
+            catch(Exception e)
+            {
+                r.value = null;
+                r.info = "Error:" + e.Message;
+                r.status = false;
+                return r;
+            }
+    }
     }
 }

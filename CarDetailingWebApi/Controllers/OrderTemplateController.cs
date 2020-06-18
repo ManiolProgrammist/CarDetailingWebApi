@@ -19,6 +19,8 @@ namespace CarDetailingWebApi.Controllers
             this.orderServices = orderServices;
         }
         // GET: api/OrderTemplate
+        [Route(("api/OrderTemplate"))]
+        [HttpGet]
         public Result<List<OrdersTemplate>> Get()
         {
            return orderServices.Get();
