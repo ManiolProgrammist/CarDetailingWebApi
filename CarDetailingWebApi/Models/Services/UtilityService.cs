@@ -10,7 +10,7 @@ namespace CarDetailingWebApi.Models.Services
 {
     public class UtilityService
     {
-        private string MyEmail = "CarDetailingApp123@gmail.com";
+        private string MyEmail = "CarDetailingApp123@gmail.com"; //
         private string MyEmailPassword = "TestoweHaslo123-";
 
         public Result<MailMessage> SendEmail(string from,string password, string to,string message)
@@ -20,16 +20,20 @@ namespace CarDetailingWebApi.Models.Services
             {
                 MailMessage mail = new MailMessage();
                 SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
-
+                SmtpServer.UseDefaultCredentials = false;
+                SmtpServer.Port = 587;
+                SmtpServer.EnableSsl = true;
+                SmtpServer.DeliveryMethod = SmtpDeliveryMethod.Network;
+                SmtpServer.Credentials = new System.Net.NetworkCredential(from, password);
+              
+       
                 mail.From = new MailAddress(from);
                 mail.To.Add(to);
                 mail.Subject = "CarWebAppi";
                 mail.Body = message;
 
-                SmtpServer.Port = 587;
-                SmtpServer.Credentials = new System.Net.NetworkCredential(from, password);
-                SmtpServer.EnableSsl = true;
-
+            
+           
                 SmtpServer.Send(mail);
                 R.info = "pomyślnie wysłany email";
                 R.value = mail;

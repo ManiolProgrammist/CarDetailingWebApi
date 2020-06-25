@@ -134,6 +134,7 @@ namespace CarDetailingWebApi.Controllers
             if (U.status)
             {
                 value.order.UserId = U.value.UserId;
+                value.order.CreateOrderUserId = U.value.UserId;
                 R= _orderService.Add(value.order);
                 if (R.status)
                 {//przesyłamy informacje o temporary userze spowrotem
