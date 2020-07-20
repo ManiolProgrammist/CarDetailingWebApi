@@ -27,6 +27,8 @@ namespace CarDetailingWebApi.Models.db
     
         public virtual DbSet<Blog> Blogs { get; set; }
         public virtual DbSet<BlogImage> BlogImages { get; set; }
+        public virtual DbSet<DayInfo> DayInfoes { get; set; }
+        public virtual DbSet<DiffrentDayInfo> DiffrentDayInfoes { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<OrdersInformation> OrdersInformations { get; set; }
         public virtual DbSet<OrdersTemplate> OrdersTemplates { get; set; }

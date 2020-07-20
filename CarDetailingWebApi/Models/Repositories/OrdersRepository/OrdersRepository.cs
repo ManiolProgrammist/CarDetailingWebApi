@@ -85,6 +85,33 @@ namespace CarDetailingWebApi.Models
                 return r;
             }
         }
+
+        public Result<List<Order>> GetOrdersFromDay(System.DateTime date)
+        {
+            using (CarCosmeticSalonEntities db = new CarCosmeticSalonEntities())
+            {
+                db.Configuration.LazyLoadingEnabled = false;
+                var r = new Result<List<Order>>();
+                r.info = "get orders from Day " +date.Day+"/" +date.Month+"/"+date.Year+"/";
+                r.status = true;
+                r.value = db.Orders.Where(e =>e.ExpectedStartOfOrder.Value.Day==date.Day&&e.ExpectedStartOfOrder.Value.Month==date.Month&&e.ExpectedStartOfOrder.Value.Year==date.Year).ToList();
+                r.value = AddTemplateOrderToList(r.value);
+                return r;
+            }
+        }
+        public Result<List<Order>> GetOrdersFromMonth(System.DateTime date)
+        {
+            using (CarCosmeticSalonEntities db = new CarCosmeticSalonEntities())
+            {
+                db.Configuration.LazyLoadingEnabled = false;
+                var r = new Result<List<Order>>();
+                r.info = "get orders from month " + date.Month + "/" + date.Year + "/";
+                r.status = true;
+                r.value = db.Orders.Where(e => e.ExpectedStartOfOrder.Value.Date.Year== date.Date.Year&& e.ExpectedStartOfOrder.Value.Date.Month==date.Date.Month ).ToList();
+                r.value = AddTemplateOrderToList(r.value);
+                return r;
+            }
+        }
         private List<Order> AddTemplateOrderToList(List<Order> ord)
         {
             foreach (var l in ord)

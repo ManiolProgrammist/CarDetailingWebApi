@@ -12,5 +12,7 @@ namespace CarDetailingWebApi.Models
         Result<List<Order>> Get(bool Done);
         Result<List<Order>> GetStarted(bool started);
         Result<List<Order>> GetByUserId(int id);
+        Result<List<Order>> GetOrdersFromDay(System.DateTime date);
+        Result<List<Order>> GetOrdersFromMonth(System.DateTime date);
     }
 }

@@ -20,6 +20,27 @@
           <Property Name="BlogId" Type="int" Nullable="false" />
           <Property Name="Image" Type="image" />
         </EntityType>
+        <EntityType Name="DayInfo">
+          <Key>
+            <PropertyRef Name="DayId" />
+          </Key>
+          <Property Name="DayId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="IsOpen" Type="bit" Nullable="false" />
+          <Property Name="OpenHour" Type="nvarchar" MaxLength="10" />
+          <Property Name="CloseHour" Type="nvarchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="DiffrentDayInfo">
+          <Key>
+            <PropertyRef Name="DiffDayInfo" />
+          </Key>
+          <Property Name="DiffDayInfo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DayId" Type="int" Nullable="false" />
+          <Property Name="IsOpen" Type="bit" Nullable="false" />
+          <Property Name="OpenHour" Type="nvarchar" MaxLength="10" />
+          <Property Name="CloseHour" Type="nvarchar" MaxLength="10" />
+          <Property Name="ExactChangeDate" Type="datetime" Nullable="false" />
+        </EntityType>
         <EntityType Name="Orders">
           <Key>
             <PropertyRef Name="OrderId" />
@@ -151,6 +172,18 @@ warning 6002: The table/view 'CarCosmeticSalon.dbo.OrdersTemplateOrdersSet' does
             </Principal>
             <Dependent Role="BlogImages">
               <PropertyRef Name="BlogId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DiffrentD__DayId__5EBF139D">
+          <End Role="DayInfo" Type="Self.DayInfo" Multiplicity="1" />
+          <End Role="DiffrentDayInfo" Type="Self.DiffrentDayInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DayInfo">
+              <PropertyRef Name="DayId" />
+            </Principal>
+            <Dependent Role="DiffrentDayInfo">
+              <PropertyRef Name="DayId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -289,6 +322,8 @@ warning 6002: The table/view 'CarCosmeticSalon.dbo.OrdersTemplateOrdersSet' does
         <EntityContainer Name="CarCosmeticSalonModelStoreContainer">
           <EntitySet Name="Blog" EntityType="Self.Blog" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BlogImages" EntityType="Self.BlogImages" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DayInfo" EntityType="Self.DayInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DiffrentDayInfo" EntityType="Self.DiffrentDayInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrdersInformation" EntityType="Self.OrdersInformation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrdersTemplate" EntityType="Self.OrdersTemplate" Schema="dbo" store:Type="Tables" />
@@ -309,6 +344,10 @@ warning 6002: The table/view 'CarCosmeticSalon.dbo.OrdersTemplateOrdersSet' does
           <AssociationSet Name="FK__BlogImage__BlogI__5812160E" Association="Self.FK__BlogImage__BlogI__5812160E">
             <End Role="Blog" EntitySet="Blog" />
             <End Role="BlogImages" EntitySet="BlogImages" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DiffrentD__DayId__5EBF139D" Association="Self.FK__DiffrentD__DayId__5EBF139D">
+            <End Role="DayInfo" EntitySet="DayInfo" />
+            <End Role="DiffrentDayInfo" EntitySet="DiffrentDayInfo" />
           </AssociationSet>
           <AssociationSet Name="FK__Orders__CreateOr__440B1D61" Association="Self.FK__Orders__CreateOr__440B1D61">
             <End Role="Users" EntitySet="Users" />
@@ -362,6 +401,8 @@ warning 6002: The table/view 'CarCosmeticSalon.dbo.OrdersTemplateOrdersSet' does
         <EntityContainer Name="CarCosmeticSalonEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Blogs" EntityType="CarCosmeticSalonModel.Blog" />
           <EntitySet Name="BlogImages" EntityType="CarCosmeticSalonModel.BlogImage" />
+          <EntitySet Name="DayInfoes" EntityType="CarCosmeticSalonModel.DayInfo" />
+          <EntitySet Name="DiffrentDayInfoes" EntityType="CarCosmeticSalonModel.DiffrentDayInfo" />
           <EntitySet Name="Orders" EntityType="CarCosmeticSalonModel.Order" />
           <EntitySet Name="OrdersInformations" EntityType="CarCosmeticSalonModel.OrdersInformation" />
           <EntitySet Name="OrdersTemplates" EntityType="CarCosmeticSalonModel.OrdersTemplate" />
@@ -376,6 +417,10 @@ warning 6002: The table/view 'CarCosmeticSalon.dbo.OrdersTemplateOrdersSet' does
           <AssociationSet Name="FK__BlogImage__BlogI__5812160E" Association="CarCosmeticSalonModel.FK__BlogImage__BlogI__5812160E">
             <End Role="Blog" EntitySet="Blogs" />
             <End Role="BlogImage" EntitySet="BlogImages" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DiffrentD__DayId__5EBF139D" Association="CarCosmeticSalonModel.FK__DiffrentD__DayId__5EBF139D">
+            <End Role="DayInfo" EntitySet="DayInfoes" />
+            <End Role="DiffrentDayInfo" EntitySet="DiffrentDayInfoes" />
           </AssociationSet>
           <AssociationSet Name="FK__Orders__CreateOr__440B1D61" Association="CarCosmeticSalonModel.FK__Orders__CreateOr__440B1D61">
             <End Role="User" EntitySet="Users" />
@@ -434,6 +479,29 @@ warning 6002: The table/view 'CarCosmeticSalon.dbo.OrdersTemplateOrdersSet' does
           <Property Name="BlogId" Type="Int32" Nullable="false" />
           <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" />
           <NavigationProperty Name="Blog" Relationship="CarCosmeticSalonModel.FK__BlogImage__BlogI__5812160E" FromRole="BlogImage" ToRole="Blog" />
+        </EntityType>
+        <EntityType Name="DayInfo">
+          <Key>
+            <PropertyRef Name="DayId" />
+          </Key>
+          <Property Name="DayId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="IsOpen" Type="Boolean" Nullable="false" />
+          <Property Name="OpenHour" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="CloseHour" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="DiffrentDayInfoes" Relationship="CarCosmeticSalonModel.FK__DiffrentD__DayId__5EBF139D" FromRole="DayInfo" ToRole="DiffrentDayInfo" />
+        </EntityType>
+        <EntityType Name="DiffrentDayInfo">
+          <Key>
+            <PropertyRef Name="DiffDayInfo" />
+          </Key>
+          <Property Name="DiffDayInfo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DayId" Type="Int32" Nullable="false" />
+          <Property Name="IsOpen" Type="Boolean" Nullable="false" />
+          <Property Name="OpenHour" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="CloseHour" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="ExactChangeDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="DayInfo" Relationship="CarCosmeticSalonModel.FK__DiffrentD__DayId__5EBF139D" FromRole="DiffrentDayInfo" ToRole="DayInfo" />
         </EntityType>
         <EntityType Name="Order">
           <Key>
@@ -579,6 +647,18 @@ warning 6002: The table/view 'CarCosmeticSalon.dbo.OrdersTemplateOrdersSet' does
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__DiffrentD__DayId__5EBF139D">
+          <End Type="CarCosmeticSalonModel.DayInfo" Role="DayInfo" Multiplicity="1" />
+          <End Type="CarCosmeticSalonModel.DiffrentDayInfo" Role="DiffrentDayInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DayInfo">
+              <PropertyRef Name="DayId" />
+            </Principal>
+            <Dependent Role="DiffrentDayInfo">
+              <PropertyRef Name="DayId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Orders__CreateOr__440B1D61">
           <End Type="CarCosmeticSalonModel.User" Role="User" Multiplicity="1" />
           <End Type="CarCosmeticSalonModel.Order" Role="Order" Multiplicity="*" />
@@ -711,6 +791,29 @@ warning 6002: The table/view 'CarCosmeticSalon.dbo.OrdersTemplateOrdersSet' does
                 <ScalarProperty Name="Image" ColumnName="Image" />
                 <ScalarProperty Name="BlogId" ColumnName="BlogId" />
                 <ScalarProperty Name="ImageId" ColumnName="ImageId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DayInfoes">
+            <EntityTypeMapping TypeName="CarCosmeticSalonModel.DayInfo">
+              <MappingFragment StoreEntitySet="DayInfo">
+                <ScalarProperty Name="CloseHour" ColumnName="CloseHour" />
+                <ScalarProperty Name="OpenHour" ColumnName="OpenHour" />
+                <ScalarProperty Name="IsOpen" ColumnName="IsOpen" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="DayId" ColumnName="DayId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DiffrentDayInfoes">
+            <EntityTypeMapping TypeName="CarCosmeticSalonModel.DiffrentDayInfo">
+              <MappingFragment StoreEntitySet="DiffrentDayInfo">
+                <ScalarProperty Name="ExactChangeDate" ColumnName="ExactChangeDate" />
+                <ScalarProperty Name="CloseHour" ColumnName="CloseHour" />
+                <ScalarProperty Name="OpenHour" ColumnName="OpenHour" />
+                <ScalarProperty Name="IsOpen" ColumnName="IsOpen" />
+                <ScalarProperty Name="DayId" ColumnName="DayId" />
+                <ScalarProperty Name="DiffDayInfo" ColumnName="DiffDayInfo" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

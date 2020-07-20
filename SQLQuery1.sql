@@ -135,6 +135,28 @@ ShortDescripption nvarchar(254),
 TypeOfSocialmedia nvarchar(100),
 link nvarchar(MAX) not null);
 
+create table DayInfo(
+	DayId int not null identity primary key,
+	Name nvarchar(200) not null ,
+	IsOpen bit not null,
+    OpenHour nvarchar(10) null,
+    CloseHour nvarchar(10) null);
+
+create table DiffrentDayInfo(
+	DiffDayInfo int not null identity primary key,
+	DayId int not null foreign key references DayInfo(DayId),
+	IsOpen bit not null,
+	OpenHour nvarchar(10) null,
+	CloseHour nvarchar(10) null,
+	ExactChangeDate DATETIME NOT NULL,
+	);
+Insert into DayInfo(Name,IsOpen,OpenHour,CloseHour) values ('pon',1,'09:30:00', '16:30:00');
+Insert into DayInfo(Name,IsOpen,OpenHour,CloseHour) values ('wto',1,'09:30:00', '17:30:00');
+Insert into DayInfo(Name,IsOpen,OpenHour,CloseHour) values ('œro',1,'08:00:00', '16:00:00');
+Insert into DayInfo(Name,IsOpen,OpenHour,CloseHour) values ('czw',1,'09:00:00', '17:30:00');
+Insert into DayInfo(Name,IsOpen,OpenHour,CloseHour) values ('pi¹',1,'09:00:00', '17:00:00');
+Insert into DayInfo(Name,IsOpen) values ('sob',0);
+Insert into DayInfo(Name,IsOpen) values ('nie',0);
 
 
 Insert into OrdersTemplate(MaxCost,MinCost,Name,AdditionalInformation,ExpectedTime) values (500,300,'test 1', 'information for test1','20:30:00');

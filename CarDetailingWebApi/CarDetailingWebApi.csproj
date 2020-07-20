@@ -158,6 +158,7 @@
   <ItemGroup>
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\OptionsController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\OrderTemplateController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -170,6 +171,12 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\db\BlogImage.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\db\DayInfo.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\db\DiffrentDayInfo.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\db\Model1.Context.cs">
@@ -223,8 +230,13 @@
     <Compile Include="Models\HelpModels\AppUser.cs" />
     <Compile Include="Models\HelpModels\AuthorizationEnum.cs" />
     <Compile Include="Models\HelpModels\LoginUserModel.cs" />
+    <Compile Include="Models\HelpModels\Options.cs" />
     <Compile Include="Models\HelpModels\RegisterUserModel.cs" />
     <Compile Include="Models\Repositories\IRepository.cs" />
+    <Compile Include="Models\Repositories\OptionRepositories\DayInfoRepository.cs" />
+    <Compile Include="Models\Repositories\OptionRepositories\DiffrentDayInfoRepository.cs" />
+    <Compile Include="Models\Repositories\OptionRepositories\IDayInfoRepository.cs" />
+    <Compile Include="Models\Repositories\OptionRepositories\IDiffrentDayInfoRepository.cs" />
     <Compile Include="Models\Repositories\OrdersRepository\IOrdersRepository.cs" />
     <Compile Include="Models\Repositories\OrdersRepository\OrdersRepository.cs" />
     <Compile Include="Models\Repositories\OrdersTemplateRepositoryF\IOrdersTemplateRepository.cs" />
@@ -237,6 +249,8 @@
     <Compile Include="Models\HelpModels\Result.cs" />
     <Compile Include="Models\Services\IService.cs" />
     <Compile Include="Models\Services\MyAuthorizationServerProvider.cs" />
+    <Compile Include="Models\Services\OptionS\DayInfoService.cs" />
+    <Compile Include="Models\Services\OptionS\IDayInfoService.cs" />
     <Compile Include="Models\Services\OrderServicesF\IOrderServices.cs" />
     <Compile Include="Models\Services\OrderTemplateServicesF\IOrderTemplateService.cs" />
     <Compile Include="Models\Services\OrderTemplateServicesF\OrdersTemplateService.cs" />

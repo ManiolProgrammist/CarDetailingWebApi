@@ -15,6 +15,7 @@ namespace CarDetailingWebApi.Models
         Result<Order> EndOrder(int orderId, bool end);
         Result<Order> PaidOrder(int orderId, bool paid);
         Result<List<Order>> GetByUserId(int id);
-
+        Result<List<DayInfo>> CheckMonthIfFree(List<DayInfo> dayInfos, System.DateTime month, System.TimeSpan NeededFreeTime);
+        Result<List<System.DateTime[]>> CheckFreeHours(System.DateTime day, System.TimeSpan NeededFreeTim);
     }
 }
