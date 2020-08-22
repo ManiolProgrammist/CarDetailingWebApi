@@ -1,5 +1,6 @@
 ﻿using CarDetailingWebApi.Models.db;
 using CarDetailingWebApi.Models.Services.OptionS;
+using CarDetailingWebApi.Models.Services.OrderTemplateServicesF;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,27 +13,31 @@ namespace CarDetailingWebApi.Models
         IOrdersRepository _orderRepository;
         IUserService _userService;
         IDayInfoService _dayInfoService;
-        public OrderServices(IOrdersRepository r, IUserService userService, IDayInfoService dayinfo)
+        IOrdersTemplateService orderTemplateService;
+        public OrderServices(IOrdersRepository r, IUserService userService, IDayInfoService dayinfo, IOrdersTemplateService oTPs)
         {
             _userService = userService;
             _orderRepository = r;
             _dayInfoService = dayinfo;
+            orderTemplateService = oTPs;
         }
         public Result<Order> Add(Order item)
         {
             //TODO: Czy w tych godzinach nie ma problemu z zrobieniem
-            //TODO: Czy user istnieje
-            item.OrderDate = System.DateTime.Now;
-            item.ExpectedStartOfOrder = item.ExpectedStartOfOrder.Value.ToLocalTime();
-            item.User = null;
-            item.OrdersTemplate = null;
+       
+                item.OrderDate = System.DateTime.Now;
+                item.ExpectedStartOfOrder = item.ExpectedStartOfOrder.Value.ToLocalTime();
+                item.User = null;
+                item.OrdersTemplate = null;
 
-            var r = _orderRepository.Add(item);
-            if (r.status)
-            {
-                r.value.User = _userService.GetById(r.value.UserId).value;
-            }
-            return r;
+                var r = _orderRepository.Add(item);
+                if (r.status)
+                {
+                    r.value.User = _userService.GetById(r.value.UserId).value;
+                    r.value.OrdersTemplate = orderTemplateService.GetById(r.value.OrderTemplateId).value;
+                }
+                return r;
+          
         }
 
 

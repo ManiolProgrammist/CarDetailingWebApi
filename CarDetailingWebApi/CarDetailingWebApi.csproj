@@ -241,6 +241,8 @@
     <Compile Include="Models\Repositories\OrdersRepository\OrdersRepository.cs" />
     <Compile Include="Models\Repositories\OrdersTemplateRepositoryF\IOrdersTemplateRepository.cs" />
     <Compile Include="Models\Repositories\OrdersTemplateRepositoryF\OrdersTemplateRepository.cs" />
+    <Compile Include="Models\Repositories\OrderTemplateImageRepository\IOrderTemplateImageRepository.cs" />
+    <Compile Include="Models\Repositories\OrderTemplateImageRepository\OrderTemplateImageRepository.cs" />
     <Compile Include="Models\Repositories\Repository.cs" />
     <Compile Include="Models\Repositories\UserRightsRepo\IUserRightsRepository.cs" />
     <Compile Include="Models\Repositories\UserRightsRepo\UserRightsRepository.cs" />

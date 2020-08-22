@@ -18,6 +18,7 @@ namespace CarDetailingWebApi.App_Start
     using CarDetailingWebApi.Models.Services.UserRightsService;
     using CarDetailingWebApi.Models.Repositories.OptionRepositories;
     using CarDetailingWebApi.Models.Services.OptionS;
+    using CarDetailingWebApi.Models.Repositories.OrderTemplateImageRepository;
 
     public static class NinjectWebCommon 
     {
@@ -85,6 +86,7 @@ namespace CarDetailingWebApi.App_Start
             kernel.Bind<IDayInfoService>().To<DayInfoService>();
 
             kernel.Bind<IDiffrentDayInfoRepository>().To<DiffrentDayInfoRepository>();
+            kernel.Bind<IOrderTemplateImageRepository>().To<OrderTemplateImageRepository>();
         }        
         public static IKernel GetKernel()
         {

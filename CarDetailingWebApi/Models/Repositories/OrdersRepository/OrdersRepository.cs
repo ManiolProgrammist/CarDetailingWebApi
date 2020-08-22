@@ -22,6 +22,20 @@ namespace CarDetailingWebApi.Models
 
             return r;
         }
+      public Result<List<Order>> GetByTemplateId(int id)
+      {
+         using (CarCosmeticSalonEntities db = new CarCosmeticSalonEntities())
+         {
+            db.Configuration.LazyLoadingEnabled = false;
+            var r = new Result<List<Order>>();
+            r.info = "get by user id " + id;
+            r.status = true;
+
+            r.value = db.Orders.Where(e => e.OrderTemplateId == id).ToList();
+            r.value = AddTemplateOrderToList(r.value);
+            return r;
+         }
+      }
         public Result<List<Order>> GetByUserId(int id)
         {
             using (CarCosmeticSalonEntities db = new CarCosmeticSalonEntities())

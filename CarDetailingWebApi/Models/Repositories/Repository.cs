@@ -11,15 +11,25 @@ namespace CarDetailingWebApi.Models.Repositories
 
         public Result<T> Add(T item) //    item.AccoutCreateDate = DateTime.Now; dla usera
         {
-            using (CarCosmeticSalonEntities db = new CarCosmeticSalonEntities())
+            var r = new Result<T>();
+            try
             {
-                db.Configuration.LazyLoadingEnabled = false;
-                var r = new Result<T>();
-                r.info = "Poprawnie dodane";
-                r.status = true;
-                r.value = item;
-                db.Entry(item).State = System.Data.Entity.EntityState.Added;
-                db.SaveChanges();
+                using (CarCosmeticSalonEntities db = new CarCosmeticSalonEntities())
+                {
+                    db.Configuration.LazyLoadingEnabled = false;
+
+                    r.info = "Poprawnie dodane";
+                    r.status = true;
+                    r.value = item;
+                    db.Entry(item).State = System.Data.Entity.EntityState.Added;
+                    db.SaveChanges();
+                    return r;
+                }
+            }catch(Exception e)
+            {
+                r.status = false;
+                r.value = null;
+                r.info = "Nie udało się dodać, error:"+e.ToString();
                 return r;
             }
         }
@@ -43,8 +53,6 @@ namespace CarDetailingWebApi.Models.Repositories
             {
                 db.Configuration.LazyLoadingEnabled = false;
                 var r = new Result<T>();
-                r.info = "test mess";
-                r.status = true;
                 r.value = db.Set<T>().Find(id);
                 if (r.value != null)
                 {
