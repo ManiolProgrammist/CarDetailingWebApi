@@ -12,11 +12,6 @@ namespace CarDetailingWebApi
         {
             // Web API configuration and services
 
-            // Web API routes
-            //tutaj pozwalam na to że angular może korzystać z resta
-            //var cors = new EnableCorsAttribute("http://localhost:4200", "*", "*");
-
-            //config.EnableCors(cors);
             config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute(

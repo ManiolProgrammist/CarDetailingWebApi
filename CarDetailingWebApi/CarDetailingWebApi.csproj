@@ -161,6 +161,7 @@
     <Compile Include="Controllers\OptionsController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\OrderTemplateController.cs" />
+    <Compile Include="Controllers\PayUController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\UserTypeController.cs" />
     <Compile Include="Controllers\UtilityController.cs" />
@@ -227,10 +228,17 @@
     <Compile Include="Models\db\UserType.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\HelpModels\AppUser.cs" />
     <Compile Include="Models\HelpModels\AuthorizationEnum.cs" />
     <Compile Include="Models\HelpModels\LoginUserModel.cs" />
     <Compile Include="Models\HelpModels\Options.cs" />
+    <Compile Include="Models\HelpModels\PayU\BuyerPayU.cs" />
+    <Compile Include="Models\HelpModels\PayU\PayUAuthorizeModel.cs" />
+    <Compile Include="Models\HelpModels\PayU\PayUHelper.cs" />
+    <Compile Include="Models\HelpModels\PayU\PayUOrder.cs" />
+    <Compile Include="Models\HelpModels\PayU\PayUOrderRequestResult.cs" />
+    <Compile Include="Models\HelpModels\PayU\PayUPayResult.cs" />
+    <Compile Include="Models\HelpModels\PayU\PayUPayResultOrder.cs" />
+    <Compile Include="Models\HelpModels\PayU\PayuProduct.cs" />
     <Compile Include="Models\HelpModels\RegisterUserModel.cs" />
     <Compile Include="Models\Repositories\IRepository.cs" />
     <Compile Include="Models\Repositories\OptionRepositories\DayInfoRepository.cs" />
@@ -303,7 +311,9 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>52951</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:52951/</IISUrl>
+          <IISUrl>http://localhost:32912/</IISUrl>
+          <OverrideIISAppRootUrl>True</OverrideIISAppRootUrl>
+          <IISAppRootUrl>http://localhost:32912/</IISAppRootUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

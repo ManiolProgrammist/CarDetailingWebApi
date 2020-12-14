@@ -1,33 +1,29 @@
 Create Database CarCosmeticSalon;
 use CarCosmeticSalon;
--- drop table OrdersTemplateOrdersSet;
--- go
--- drop table OrdersTemplateSet;
--- go
+ drop table OrdersTemplateOrdersSet;
+ go
+ drop table OrdersTemplateSet;
+ go
 
--- drop table Users;
--- go
--- drop table Images;
--- go
--- drop table OrdersTemplateImages;
--- go
--- drop table Orders;
--- go
+ drop table Users;
+ go
+ drop table OrdersTemplateImages;
+ go
+ drop table Orders;
+ go
 
--- drop table OrdersTemplate;
--- go
--- drop table OrdersInformation;
--- go
--- drop table OrdersTemplateInformation;
--- go
--- drop table UserInformations;
--- go
--- drop table SmallImages;
--- go
--- drop table UserImages;
--- go
--- drop table UserType;
--- go
+ drop table OrdersTemplate;
+ go
+ drop table OrdersInformation;
+ go
+ drop table OrdersTemplateInformation;
+ go
+ drop table UserInformations;
+ go
+ drop table UserImages;
+ go
+ drop table UserType;
+ go
 
 Create Table UserType(
 UserTypeId int not null IDENTITY    PRIMARY KEY,
@@ -80,7 +76,8 @@ delays int NULL,
 Cost money null,
 IsOrderCompleted bit not null,
 IsOrderStarted bit not null,
-IsPaid bit not null);
+IsPaid bit not null,
+PayUOrderId nvarchar(254) null);
 
 
 
@@ -120,54 +117,53 @@ OrderTemplateId int not null foreign key references OrdersTemplate(OrderTemplate
 AdditionalInformation nvarchar(254),
 Image image)
 
-Create Table Blog(
-BlogId int not null identity primary key,
-content nvarchar(MAX));
+--Create Table Blog(
+--BlogId int not null identity primary key,
+--content nvarchar(MAX));
 
-Create Table BlogImages(
-ImageId int not null identity primary key,
-BlogId int not null foreign key references Blog(BlogId),
-Image image);
+--Create Table BlogImages(
+--ImageId int not null identity primary key,
+--BlogId int not null foreign key references Blog(BlogId),
+--Image image);
 
-Create Table SocialMedia(
-SocialMediaId int not null identity primary key,
-ShortDescripption nvarchar(254),
-TypeOfSocialmedia nvarchar(100),
-link nvarchar(MAX) not null);
+--Create Table SocialMedia(
+--SocialMediaId int not null identity primary key,
+--ShortDescripption nvarchar(254),
+--TypeOfSocialmedia nvarchar(100),
+--link nvarchar(MAX) not null);
 
-create table DayInfo(
-	DayId int not null identity primary key,
-	Name nvarchar(200) not null ,
-	IsOpen bit not null,
-    OpenHour nvarchar(10) null,
-    CloseHour nvarchar(10) null);
+--create table DayInfo(
+--	DayId int not null identity primary key,
+--	Name nvarchar(200) not null ,
+--	IsOpen bit not null,
+--    OpenHour nvarchar(10) null,
+--    CloseHour nvarchar(10) null);
 
-create table DiffrentDayInfo(
-	DiffDayInfo int not null identity primary key,
-	DayId int not null foreign key references DayInfo(DayId),
-	IsOpen bit not null,
-	OpenHour nvarchar(10) null,
-	CloseHour nvarchar(10) null,
-	ExactChangeDate DATETIME NOT NULL,
-	);
-Insert into DayInfo(Name,IsOpen,OpenHour,CloseHour) values ('pon',1,'09:30:00', '16:30:00');
-Insert into DayInfo(Name,IsOpen,OpenHour,CloseHour) values ('wto',1,'09:30:00', '17:30:00');
-Insert into DayInfo(Name,IsOpen,OpenHour,CloseHour) values ('œro',1,'08:00:00', '16:00:00');
-Insert into DayInfo(Name,IsOpen,OpenHour,CloseHour) values ('czw',1,'09:00:00', '17:30:00');
-Insert into DayInfo(Name,IsOpen,OpenHour,CloseHour) values ('pi¹',1,'09:00:00', '17:00:00');
-Insert into DayInfo(Name,IsOpen) values ('sob',0);
-Insert into DayInfo(Name,IsOpen) values ('nie',0);
+--create table DiffrentDayInfo(
+--	DiffDayInfo int not null identity primary key,
+--	DayId int not null foreign key references DayInfo(DayId),
+--	IsOpen bit not null,
+--	OpenHour nvarchar(10) null,
+--	CloseHour nvarchar(10) null,
+--	ExactChangeDate DATETIME NOT NULL,
+--	);
+--Insert into DayInfo(Name,IsOpen,OpenHour,CloseHour) values ('pon',1,'09:30:00', '16:30:00');
+--Insert into DayInfo(Name,IsOpen,OpenHour,CloseHour) values ('wto',1,'09:30:00', '17:30:00');
+--Insert into DayInfo(Name,IsOpen,OpenHour,CloseHour) values ('œro',1,'08:00:00', '16:00:00');
+--Insert into DayInfo(Name,IsOpen,OpenHour,CloseHour) values ('czw',1,'09:00:00', '17:30:00');
+--Insert into DayInfo(Name,IsOpen,OpenHour,CloseHour) values ('pi¹',1,'09:00:00', '17:00:00');
+--Insert into DayInfo(Name,IsOpen) values ('sob',0);
+--Insert into DayInfo(Name,IsOpen) values ('nie',0);
 
 
 Insert into OrdersTemplate(MaxCost,MinCost,Name,AdditionalInformation,ExpectedTime) values (500,300,'test 1', 'information for test1','20:30:00');
 Insert into OrdersTemplate(MaxCost,MinCost,Name,AdditionalInformation,ExpectedTime) values (500,300,'test 2', 'information for test2','00:30:00');
 Insert into OrdersTemplate(MaxCost,MinCost,Name,AdditionalInformation,ExpectedTime) values (100,50,'test 3', 'information for test3','00:01:00');
-
+select * from OrdersTemplate
 Insert Into UserType(AccessRights,Name) values (1,'Temporary User');
 Insert Into UserType(AccessRights,Name) values (2,'Normal User');
 Insert Into UserType(AccessRights,Name) values (3,'Employee');
 Insert Into UserType(AccessRights,Name) values (4,'Admin');
-
 select * from UserType;
 
 --Insert Into Users(

@@ -33,6 +33,7 @@ namespace CarDetailingWebApi.Models.db
         public bool IsOrderCompleted { get; set; }
         public bool IsOrderStarted { get; set; }
         public bool IsPaid { get; set; }
+        public string PayUOrderId { get; set; }
     
         public virtual User User { get; set; }
         public virtual OrdersTemplate OrdersTemplate { get; set; }

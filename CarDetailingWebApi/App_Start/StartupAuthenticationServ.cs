@@ -38,7 +38,7 @@ namespace CarDetailingWebApi
             app.UseOAuthAuthorizationServer(options);
            
             app.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions());
-            var cors = new EnableCorsAttribute("http://localhost:4200", "*", "*");
+            //var cors = new EnableCorsAttribute("http://localhost:4200", "*", "*");
 
             //
 

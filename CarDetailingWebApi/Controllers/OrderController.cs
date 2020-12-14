@@ -112,7 +112,6 @@ namespace CarDetailingWebApi.Controllers
       [Route("api/Order")]
       public Result<Order> Post([FromBody] Order value)
       {
-
          return _orderService.Add(value);
       }
       [Route("api/OrderTU")]
