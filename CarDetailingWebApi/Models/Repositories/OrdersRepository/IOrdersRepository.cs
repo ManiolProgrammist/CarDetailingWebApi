@@ -15,5 +15,6 @@ namespace CarDetailingWebApi.Models
       Result<List<Order>> GetOrdersFromDay(System.DateTime date);
       Result<List<Order>> GetOrdersFromMonth(System.DateTime date);
       Result<List<Order>> GetByTemplateId(int id);
+      Result<Order> GetByPayUOrderId(string payuIdOrd);
    }
 }

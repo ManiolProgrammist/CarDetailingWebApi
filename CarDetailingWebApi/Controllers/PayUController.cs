@@ -28,9 +28,30 @@ namespace CarDetailingWebApi.Controllers
 
       [HttpPost]
       [Route("api/PayStatus")]
-      public HttpResponseMessage PostPayuPayResult([FromBody] string result)
+      public HttpResponseMessage PostPayuPayResult([FromBody] PayUNotification result)
       {
          //HttpRequestMessage request,
+         if (result.order.status == "COMPLETED")
+         {
+            var orderResult = _orderService.GetByPayUOrderId(result.order.orderId);
+            if (orderResult.status)
+            {
+               var order = orderResult.value;
+               order.IsPaid = true;
+               _orderService.Update(order);
+            }
+         }
+         else if (result.order.status == "CANCELED")
+         {
+            var orderResult = _orderService.GetByPayUOrderId(result.order.orderId);
+            if (orderResult.status)
+            {
+               var order = orderResult.value;
+               order.IsPaid = false;
+               order.PayUOrderId = "";
+               _orderService.Update(order);
+            }
+         }
          return new HttpRequestMessage().CreateResponse(HttpStatusCode.OK);
       }
 
@@ -40,7 +61,10 @@ namespace CarDetailingWebApi.Controllers
       public async Task<Result<PayUOrderRequestResult>> Post(int id)
       {
          var apiUrl = Url.Content("~/");
-         //apiUrl = apiUrl.Replace("http","https");
+         //in case of localhost
+         apiUrl = apiUrl.Replace("localhost", "78.155.118.23");
+         //in case of local 
+         apiUrl = apiUrl.Replace("192.168.0.32", "78.155.118.23");
          var orderResult = _orderService.GetById(id);
          var rV = new Result<PayUOrderRequestResult>();
          rV.status = false;

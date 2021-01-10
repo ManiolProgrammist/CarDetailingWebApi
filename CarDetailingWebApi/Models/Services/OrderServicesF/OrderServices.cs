@@ -349,7 +349,14 @@ namespace CarDetailingWebApi.Models
             return r;
         }
 
-
-
-    }
+      public Result<Order> GetByPayUOrderId(string payuIdOrd)
+      {
+         var r = _orderRepository.GetByPayUOrderId(payuIdOrd);
+         //if (r.status)
+         //{
+         //   r.value.User = _userService.GetById(r.value.UserId).value;
+         //}
+         return r;
+      }
+   }
 }

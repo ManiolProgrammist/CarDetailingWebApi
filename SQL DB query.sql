@@ -158,7 +158,7 @@ Image image)
 
 Insert into OrdersTemplate(MaxCost,MinCost,Name,AdditionalInformation,ExpectedTime) values (500,300,'test 1', 'information for test1','20:30:00');
 Insert into OrdersTemplate(MaxCost,MinCost,Name,AdditionalInformation,ExpectedTime) values (500,300,'test 2', 'information for test2','00:30:00');
-Insert into OrdersTemplate(MaxCost,MinCost,Name,AdditionalInformation,ExpectedTime) values (100,50,'test 3', 'information for test3','00:01:00');
+Insert into OrdersTemplate(MaxCost,MinCost,Name,AdditionalInformation,ExpectedTime) values (100,50,'test 3', 'information for test3','00:15:00');
 select * from OrdersTemplate
 Insert Into UserType(AccessRights,Name) values (1,'Temporary User');
 Insert Into UserType(AccessRights,Name) values (2,'Normal User');

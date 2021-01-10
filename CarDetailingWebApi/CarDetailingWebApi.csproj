@@ -234,6 +234,7 @@
     <Compile Include="Models\HelpModels\PayU\BuyerPayU.cs" />
     <Compile Include="Models\HelpModels\PayU\PayUAuthorizeModel.cs" />
     <Compile Include="Models\HelpModels\PayU\PayUHelper.cs" />
+    <Compile Include="Models\HelpModels\PayU\PayUNotification.cs" />
     <Compile Include="Models\HelpModels\PayU\PayUOrder.cs" />
     <Compile Include="Models\HelpModels\PayU\PayUOrderRequestResult.cs" />
     <Compile Include="Models\HelpModels\PayU\PayUPayResult.cs" />

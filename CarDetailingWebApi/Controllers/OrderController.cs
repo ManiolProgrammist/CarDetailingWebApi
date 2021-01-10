@@ -42,6 +42,15 @@ namespace CarDetailingWebApi.Controllers
          var us = _userService.GetByLogin(identity.Name).value.UserId;
          return _orderService.GetByUserId(us);
       }
+      [HttpGet]
+      [Authorize] //roles="*"?
+      [Route("api/UserOrders/{UserId}")]
+      public Result<List<Order>> GetOrdersOfUser(int UserId)
+      {
+         //var identity = (ClaimsIdentity)User.Identity;
+         //var us = _userService.GetByLogin(identity.Name).value.UserId;
+         return _orderService.GetByUserId(UserId);
+      }
 
 
       [HttpGet]
@@ -69,6 +78,13 @@ namespace CarDetailingWebApi.Controllers
       public Result<Order> EndOrder([FromBody] Order order, bool end)
       {
          return _orderService.EndOrder(order.OrderId, end);
+      }
+      [Authorize(Roles = "Employee, Admin")]
+      [HttpPut]
+      [Route("api/Order/PaidOnTheSpot")]
+      public Result<Order> PayForOrderOnTheSpot([FromBody] Order order)
+      {
+         return _orderService.PaidOrder(order.OrderId, true);
       }
 
       [Authorize]
@@ -116,7 +132,7 @@ namespace CarDetailingWebApi.Controllers
       }
       [Route("api/OrderTU")]
       [HttpPost]
-      public Result<Order> PostFromTemporary([FromBody]OrderEmail value)
+      public Result<Order> PostFromTemporary([FromBody] OrderEmail value)
       {
          //TODO: Sprawdź Order przed CreateTemporaryUser 
          var U = _userService.CreateTemporaryUser(value.email); //tutaj też wysyłamy emaila
@@ -139,7 +155,7 @@ namespace CarDetailingWebApi.Controllers
 
       [Authorize(Roles = "Employee,Admin,Normal User,Temporary User")]
       // PUT: api/Order/5
-      public Result<Order> Put(int id, [FromBody]string value)
+      public Result<Order> Put(int id, [FromBody] string value)
       {
 
          return null;

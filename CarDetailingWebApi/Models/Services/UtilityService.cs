@@ -12,8 +12,8 @@ namespace CarDetailingWebApi.Models.Services
     {
         private string MyEmail = "CarDetailingApp123@gmail.com"; //
         private string MyEmailPassword = "TestoweHaslo123-";
-
-        public Result<MailMessage> SendEmail(string from,string password, string to,string message)
+      // You need to allow not sercured applications on your email
+      public Result<MailMessage> SendEmail(string from,string password, string to,string message)
         {
             var R = new Result<MailMessage>();
             try
