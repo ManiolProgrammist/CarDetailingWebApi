@@ -34,7 +34,7 @@ namespace CarDetailingWebApi.Models.Services.OrderTemplateServicesF
                r.info = "Error: maxymalny koszt mniejszy od minimalnego";
                return r;
             }
-            item.OrdersTemplateSets = null;
+            
             return _ordersTRepository.Add(item);
          }
          else
@@ -124,16 +124,33 @@ namespace CarDetailingWebApi.Models.Services.OrderTemplateServicesF
          }
       }
 
-      public Result<OrdersTemplateImage> RemoveImage(int orderTemplateId, int imageId)
+      public Result<List<OrdersTemplateImage>> RemoveImages(int orderTemplateId)
       {
-         throw new NotImplementedException();
+         var pom = GetImagesFromOrderTemplate(orderTemplateId);
+         var res = new Result<List<OrdersTemplateImage>>();
+         if(pom.status)
+         {
+            res.value = new List<OrdersTemplateImage>();
+            foreach(var im in pom.value)
+            {
+               var pom2=_orderTImageRepository.Remove(im.ImageId);
+               if(pom2.status)
+               {
+                  res.value.Add(pom2.value);
+               }
+            }
+            res.status = true;
+         }
+         return res;
       }
-      public Result<OrdersTemplateImage> GetImagesFromOrderTemplate(int orderTemplateId)
+      public Result<List<OrdersTemplateImage>> GetImagesFromOrderTemplate(int orderTemplateId)
       {
-         throw new NotImplementedException();
+         return _orderTImageRepository.GetImagesFromOrderTemplateId(orderTemplateId);
       }
       public Result<OrdersTemplateImage> AddImage(OrdersTemplateImage orderTemplateImage)
       {
+         //TODO: temporary solution for only one image.
+         RemoveImages(orderTemplateImage.OrderTemplateId);
          var r = new Result<OrdersTemplateImage>();
          if (orderTemplateImage.OrderTemplateId != 0)
          {

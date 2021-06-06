@@ -87,8 +87,18 @@ namespace CarDetailingWebApi.Controllers
          return _orderService.PaidOrder(order.OrderId, true);
       }
 
+      //delay=delayAmount*15min
+      [Authorize(Roles = "Employee, Admin")]
+      [HttpPut]
+      [Route("api/Order/AddDelay/{delayAmount}")]
+      public Result<Order> AddDelay([FromBody] Order order,int delayAmount)
+      {
+         return _orderService.AddDelay(order.OrderId, delayAmount);
+      }
+
       [Authorize]
       [Route("api/Order/{id}")]
+      [HttpGet]
       // GET: api/Order/5
       public Result<Order> Get(int id)
       {

@@ -19,8 +19,10 @@ namespace CarDetailingWebApi.App_Start
     using CarDetailingWebApi.Models.Repositories.OptionRepositories;
     using CarDetailingWebApi.Models.Services.OptionS;
     using CarDetailingWebApi.Models.Repositories.OrderTemplateImageRepository;
+   using CarDetailingWebApi.Models.Repositories.OrdersRepository;
+   using CarDetailingWebApi.Models.Services.OrderServicesF;
 
-    public static class NinjectWebCommon 
+   public static class NinjectWebCommon 
     {
         private static readonly Bootstrapper bootstrapper = new Bootstrapper();
 
@@ -85,10 +87,15 @@ namespace CarDetailingWebApi.App_Start
             kernel.Bind<IDayInfoRepository>().To<DayInfoRepository>();
             kernel.Bind<IDayInfoService>().To<DayInfoService>();
 
-            kernel.Bind<IDiffrentDayInfoRepository>().To<DiffrentDayInfoRepository>();
+            kernel.Bind<IDifDayInfoRepository>().To<DifDayInfoRepository>();
             kernel.Bind<IOrderTemplateImageRepository>().To<OrderTemplateImageRepository>();
-        }        
-        public static IKernel GetKernel()
+            
+            kernel.Bind<IOrdersInfoRepository>().To<OrdersInfoRepository>();
+            kernel.Bind<IOrderInfoService>().To<OrderInfoService>();
+
+
+      }
+      public static IKernel GetKernel()
         {
             return bootstrapper.Kernel;
         }

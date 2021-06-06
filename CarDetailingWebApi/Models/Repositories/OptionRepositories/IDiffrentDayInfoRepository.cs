@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace CarDetailingWebApi.Models.Repositories.OptionRepositories
 {
-    public interface IDiffrentDayInfoRepository:IRepository<DiffrentDayInfo>
+    public interface IDifDayInfoRepository:IRepository<DifDayInfo>
     {
-        Result<List<DiffrentDayInfo>> getMonthDiffInfo(System.DateTime month);
-        Result<DiffrentDayInfo> getDayDiffInfo(System.DateTime day);
+        Result<List<DifDayInfo>> getMonthDiffInfo(System.DateTime month);
+        Result<DifDayInfo> getDayDiffInfo(System.DateTime day);
     }
 }

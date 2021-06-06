@@ -6,26 +6,26 @@ using System.Web;
 
 namespace CarDetailingWebApi.Models.Repositories.OptionRepositories
 {
-    public class DiffrentDayInfoRepository : Repository<DiffrentDayInfo>, IDiffrentDayInfoRepository
+    public class DifDayInfoRepository : Repository<DifDayInfo>, IDifDayInfoRepository
     {
         IDayInfoRepository _dayInfoRepository;
         //IUsersRepository usersRepo;
-        public DiffrentDayInfoRepository(IDayInfoRepository dayInfRep)
+        public DifDayInfoRepository(IDayInfoRepository dayInfRep)
         {//,IUsersRepository usersRepo
             _dayInfoRepository = dayInfRep;
             // this.usersRepo = usersRepo;
         }
-        public Result<DiffrentDayInfo> getDayDiffInfo(DateTime day)
+        public Result<DifDayInfo> getDayDiffInfo(DateTime day)
         {
-            using (CarCosmeticSalonEntities db = new CarCosmeticSalonEntities())
+            using (CarCosmeticSalonEntities2 db = new CarCosmeticSalonEntities2())
             {
                 db.Configuration.LazyLoadingEnabled = false;
-                var r = new Result<DiffrentDayInfo>();
+                var r = new Result<DifDayInfo>();
                 r.info = "Zmiana informacji o dniu: "+ day.ToString();
                
                 //linku nie porównuje Date dlatego musiałem osobno year,month,day
                 r.value =
-                    db.DiffrentDayInfoes.Where(e => e.ExactChangeDate.Year == day.Year&&e.ExactChangeDate.Month==day.Month&&e.ExactChangeDate.Day==day.Day).FirstOrDefault();
+                    db.DifDayInfoes.Where(e => e.ExactChangeDate.Year == day.Year&&e.ExactChangeDate.Month==day.Month&&e.ExactChangeDate.Day==day.Day).FirstOrDefault();
                 if (r.value != null)
                 {
                     r.value.DayInfo = _dayInfoRepository.GetById(r.value.DayId).value;
@@ -37,15 +37,15 @@ namespace CarDetailingWebApi.Models.Repositories.OptionRepositories
             }
         }
 
-        public Result<List<DiffrentDayInfo>> getMonthDiffInfo(DateTime month)
+        public Result<List<DifDayInfo>> getMonthDiffInfo(DateTime month)
         {
-            using (CarCosmeticSalonEntities db = new CarCosmeticSalonEntities())
+            using (CarCosmeticSalonEntities2 db = new CarCosmeticSalonEntities2())
             {
                 db.Configuration.LazyLoadingEnabled = false;
-                var r = new Result<List<DiffrentDayInfo>>();
+                var r = new Result<List<DifDayInfo>>();
                 r.info = "Informacja o zmianach terminów w miesiącu: "+month.ToString();
                 r.value =
-                    db.DiffrentDayInfoes.Where(e => e.ExactChangeDate.Month == month.Month && e.ExactChangeDate.Year == month.Year)
+                    db.DifDayInfoes.Where(e => e.ExactChangeDate.Month == month.Month && e.ExactChangeDate.Year == month.Year)
                     .ToList();
                 if (r.value.Count > 0)
                 {

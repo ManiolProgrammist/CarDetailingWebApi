@@ -16,6 +16,7 @@ namespace CarDetailingWebApi.Controllers
 
       IOrderServices _orderService;
       IUserService _userService;
+      string yourIp = "78.155.118.23";
       public PayUController(IOrderServices serv, IUserService userv)
       {
          _orderService = serv;
@@ -62,9 +63,9 @@ namespace CarDetailingWebApi.Controllers
       {
          var apiUrl = Url.Content("~/");
          //in case of localhost
-         apiUrl = apiUrl.Replace("localhost", "78.155.118.23");
+         apiUrl = apiUrl.Replace("localhost", yourIp);
          //in case of local 
-         apiUrl = apiUrl.Replace("192.168.0.32", "78.155.118.23");
+         apiUrl = apiUrl.Replace("192.168.0.32", yourIp);
          var orderResult = _orderService.GetById(id);
          var rV = new Result<PayUOrderRequestResult>();
          rV.status = false;
@@ -78,9 +79,9 @@ namespace CarDetailingWebApi.Controllers
                {
                   if ("" != rV.value.orderId)
                   {
-                     var orderUpd = orderResult.value;
-                     orderUpd.PayUOrderId = rV.value.orderId;
-                     var resUpd = _orderService.Update(orderUpd);
+                     var orderUpd = _orderService.GetById( orderResult.value.OrderId);
+                     orderUpd.value.PayUOrderId = rV.value.orderId;
+                     var resUpd = _orderService.Update(orderUpd.value);
                      if (false == resUpd.status)
                      {
                         rV.status = false;

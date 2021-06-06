@@ -1,5 +1,6 @@
 ﻿using CarDetailingWebApi.Models.db;
 using CarDetailingWebApi.Models.Repositories;
+using CarDetailingWebApi.Models.Repositories.OrdersRepository;
 using CarDetailingWebApi.Models.Repositories.OrdersTemplateRepositoryF;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,10 +10,12 @@ namespace CarDetailingWebApi.Models
    public class OrdersRepository : Repository<Order>, IOrdersRepository
    {
       IOrdersTemplateRepository OTempRepository;
+      IOrdersInfoRepository OrdersInfoRepository;
       //IUsersRepository usersRepo;
-      public OrdersRepository(IOrdersTemplateRepository ordersTemplate)
+      public OrdersRepository(IOrdersTemplateRepository ordersTemplate, IOrdersInfoRepository orInfR)
       {//,IUsersRepository usersRepo
          OTempRepository = ordersTemplate;
+         OrdersInfoRepository = orInfR;
          // this.usersRepo = usersRepo;
       }
       public new Result<List<Order>> Get()
@@ -24,7 +27,7 @@ namespace CarDetailingWebApi.Models
       }
       public Result<List<Order>> GetByTemplateId(int id)
       {
-         using (CarCosmeticSalonEntities db = new CarCosmeticSalonEntities())
+         using (CarCosmeticSalonEntities2 db = new CarCosmeticSalonEntities2())
          {
             db.Configuration.LazyLoadingEnabled = false;
             var r = new Result<List<Order>>();
@@ -38,7 +41,7 @@ namespace CarDetailingWebApi.Models
       }
       public Result<List<Order>> GetByUserId(int id)
       {
-         using (CarCosmeticSalonEntities db = new CarCosmeticSalonEntities())
+         using (CarCosmeticSalonEntities2 db = new CarCosmeticSalonEntities2())
          {
             db.Configuration.LazyLoadingEnabled = false;
             var r = new Result<List<Order>>();
@@ -58,7 +61,7 @@ namespace CarDetailingWebApi.Models
             var templ = OTempRepository.GetById(R.value.OrderTemplateId);
 
             List<OrdersInformation> info;
-            using (CarCosmeticSalonEntities db = new CarCosmeticSalonEntities())
+            using (CarCosmeticSalonEntities2 db = new CarCosmeticSalonEntities2())
             {
                info = db.OrdersInformations.Where(i => i.OrderId == R.value.OrderId).ToList();
             }
@@ -74,7 +77,7 @@ namespace CarDetailingWebApi.Models
 
       public Result<List<Order>> Get(bool Done)
       {
-         using (CarCosmeticSalonEntities db = new CarCosmeticSalonEntities())
+         using (CarCosmeticSalonEntities2 db = new CarCosmeticSalonEntities2())
          {
             db.Configuration.LazyLoadingEnabled = false;
             var r = new Result<List<Order>>();
@@ -88,7 +91,7 @@ namespace CarDetailingWebApi.Models
 
       public Result<List<Order>> GetStarted(bool started)
       {
-         using (CarCosmeticSalonEntities db = new CarCosmeticSalonEntities())
+         using (CarCosmeticSalonEntities2 db = new CarCosmeticSalonEntities2())
          {
             db.Configuration.LazyLoadingEnabled = false;
             var r = new Result<List<Order>>();
@@ -102,7 +105,7 @@ namespace CarDetailingWebApi.Models
 
       public Result<List<Order>> GetOrdersFromDay(System.DateTime date)
       {
-         using (CarCosmeticSalonEntities db = new CarCosmeticSalonEntities())
+         using (CarCosmeticSalonEntities2 db = new CarCosmeticSalonEntities2())
          {
             db.Configuration.LazyLoadingEnabled = false;
             var r = new Result<List<Order>>();
@@ -115,7 +118,7 @@ namespace CarDetailingWebApi.Models
       }
       public Result<List<Order>> GetOrdersFromMonth(System.DateTime date)
       {
-         using (CarCosmeticSalonEntities db = new CarCosmeticSalonEntities())
+         using (CarCosmeticSalonEntities2 db = new CarCosmeticSalonEntities2())
          {
             db.Configuration.LazyLoadingEnabled = false;
             var r = new Result<List<Order>>();
@@ -129,7 +132,7 @@ namespace CarDetailingWebApi.Models
       public Result<Order> GetByPayUOrderId(string payuIdOrd)
       {
          var r = new Result<Order>();
-         using (CarCosmeticSalonEntities db = new CarCosmeticSalonEntities())
+         using (CarCosmeticSalonEntities2 db = new CarCosmeticSalonEntities2())
          {
             db.Configuration.LazyLoadingEnabled = false;
 
@@ -147,6 +150,7 @@ namespace CarDetailingWebApi.Models
          }
          return r;
       }
+
       private List<Order> AddTemplateOrderToList(List<Order> ord)
       {
          foreach (var l in ord)

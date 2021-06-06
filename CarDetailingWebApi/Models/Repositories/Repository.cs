@@ -14,7 +14,7 @@ namespace CarDetailingWebApi.Models.Repositories
             var r = new Result<T>();
             try
             {
-                using (CarCosmeticSalonEntities db = new CarCosmeticSalonEntities())
+                using (CarCosmeticSalonEntities2 db = new CarCosmeticSalonEntities2())
                 {
                     db.Configuration.LazyLoadingEnabled = false;
 
@@ -36,7 +36,7 @@ namespace CarDetailingWebApi.Models.Repositories
 
         public Result<List<T>> Get()
         {
-            using (CarCosmeticSalonEntities db = new CarCosmeticSalonEntities())
+            using (CarCosmeticSalonEntities2 db = new CarCosmeticSalonEntities2())
             {
                 db.Configuration.LazyLoadingEnabled = false;
                 var r = new Result<List<T>>();
@@ -49,7 +49,7 @@ namespace CarDetailingWebApi.Models.Repositories
 
         public Result<T> GetById(int id)
         {
-            using (CarCosmeticSalonEntities db = new CarCosmeticSalonEntities())
+            using (CarCosmeticSalonEntities2 db = new CarCosmeticSalonEntities2())
             {
                 db.Configuration.LazyLoadingEnabled = false;
                 var r = new Result<T>();
@@ -78,7 +78,7 @@ namespace CarDetailingWebApi.Models.Repositories
             try
             {
                 T i;
-                using (CarCosmeticSalonEntities db = new CarCosmeticSalonEntities())
+                using (CarCosmeticSalonEntities2 db = new CarCosmeticSalonEntities2())
                 {
                     T p = db.Set<T>().Find(id);
                     db.Configuration.LazyLoadingEnabled = false;
@@ -111,19 +111,10 @@ namespace CarDetailingWebApi.Models.Repositories
             {
 
                
-                using (CarCosmeticSalonEntities db = new CarCosmeticSalonEntities())
+                using (CarCosmeticSalonEntities2 db = new CarCosmeticSalonEntities2())
                 {
                     db.Configuration.LazyLoadingEnabled = false;
                     db.Entry(item).State = System.Data.Entity.EntityState.Modified;
-                    ////i = db.Ts.Attach(item);
-                    //i = db.Ts.Where(e => e.TId == item.TId).First();
-                    //i.Email = item.Email;
-                    //i.FirstName = item.FirstName;
-                    //i.TTypeId = item.TTypeId;
-                    //i.Login = item.Login;
-                    //i.Password = item.Password;
-                    //i.PhoneNumber = item.PhoneNumber;
-                    //i.Surname = item.Surname;
                     db.SaveChanges();
                 }
 

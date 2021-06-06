@@ -18,5 +18,6 @@ namespace CarDetailingWebApi.Models
       Result<List<DayInfo>> CheckMonthIfFree(List<DayInfo> dayInfos, System.DateTime month, System.TimeSpan NeededFreeTime);
       Result<List<System.DateTime[]>> CheckFreeHours(System.DateTime day, System.TimeSpan NeededFreeTim);
       Result<Order> GetByPayUOrderId(string payuIdOrd);
+      Result<Order> AddDelay(int orderId, int delayAmount);
    }
 }

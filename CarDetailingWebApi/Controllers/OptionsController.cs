@@ -24,8 +24,7 @@ namespace CarDetailingWebApi.Controllers
             _dayInfo = serv;
             _orderServices = orderServices;
             _orderTemplService = ordersTemplateService;
-            //var kernel = new StandardKernel();
-            //kernel.Load(Assembly.GetExecutingAssembly());
+  
             //var UserRepo = kernel.Get<IRepository<User>>("UsersRepo");
         }
         //informacje o tym czy otwarte w danym miesiacu etc

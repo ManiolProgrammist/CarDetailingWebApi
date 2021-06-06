@@ -12,11 +12,15 @@ namespace CarDetailingWebApi.Models.db
     using System;
     using System.Collections.Generic;
     
-    public partial class SocialMedia
+    public partial class DifDayInfo
     {
-        public int SocialMediaId { get; set; }
-        public string ShortDescripption { get; set; }
-        public string TypeOfSocialmedia { get; set; }
-        public string link { get; set; }
+        public int DiffDayInfo { get; set; }
+        public int DayId { get; set; }
+        public bool IsOpen { get; set; }
+        public string OpenHour { get; set; }
+        public string CloseHour { get; set; }
+        public System.DateTime ExactChangeDate { get; set; }
+    
+        public virtual DayInfo DayInfo { get; set; }
     }
 }

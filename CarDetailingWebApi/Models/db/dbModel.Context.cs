@@ -13,10 +13,10 @@ namespace CarDetailingWebApi.Models.db
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class CarCosmeticSalonEntities : DbContext
+    public partial class CarCosmeticSalonEntities2 : DbContext
     {
-        public CarCosmeticSalonEntities()
-            : base("name=CarCosmeticSalonEntities")
+        public CarCosmeticSalonEntities2()
+            : base("name=CarCosmeticSalonEntities2")
         {
         }
     
@@ -25,17 +25,13 @@ namespace CarDetailingWebApi.Models.db
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Blog> Blogs { get; set; }
-        public virtual DbSet<BlogImage> BlogImages { get; set; }
         public virtual DbSet<DayInfo> DayInfoes { get; set; }
-        public virtual DbSet<DiffrentDayInfo> DiffrentDayInfoes { get; set; }
+        public virtual DbSet<DifDayInfo> DifDayInfoes { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<OrdersInformation> OrdersInformations { get; set; }
         public virtual DbSet<OrdersTemplate> OrdersTemplates { get; set; }
         public virtual DbSet<OrdersTemplateImage> OrdersTemplateImages { get; set; }
         public virtual DbSet<OrdersTemplateInformation> OrdersTemplateInformations { get; set; }
-        public virtual DbSet<OrdersTemplateSet> OrdersTemplateSets { get; set; }
-        public virtual DbSet<SocialMedia> SocialMedias { get; set; }
         public virtual DbSet<UserImage> UserImages { get; set; }
         public virtual DbSet<UserInformation> UserInformations { get; set; }
         public virtual DbSet<User> Users { get; set; }

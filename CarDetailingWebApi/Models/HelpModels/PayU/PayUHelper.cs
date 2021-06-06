@@ -64,7 +64,7 @@ namespace CarDetailingWebApi.Models.HelpModels
                continueUrl = "http://localhost:4200/home",
                customerIp = "127.0.0.1",
                merchantPosId = pos_id,
-               description = "RTV market",
+               description = "rejestracja usługi",
                currencyCode = "PLN",
             };
             List<PayuProduct> payuProducts = new List<PayuProduct>();

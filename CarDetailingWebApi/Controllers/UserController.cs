@@ -65,6 +65,26 @@ namespace CarDetailingWebApi.Controllers
       {
          return _userServices.Add(value);
       }
+      [Authorize(Roles = "Employee, Admin, Normal User, Temporary User")]
+      [HttpPut]
+      [Route(("api/ChangePassword"))]
+      public Result<User> ChangePassword([FromBody] ChangePasswordModel passwordModel)
+      {
+         var r = new Result<User>();
+         var identity = (ClaimsIdentity)User.Identity;
+         //only logged user can change his own password
+         if (identity.Name == passwordModel.login)
+         {
+            r = _userServices.ChangePassword(passwordModel.login, passwordModel.oldPassword, passwordModel.newPassword);
+
+         }
+         else
+         {
+            r.status = false;
+            r.info = "próba nieautoryzowanej zmiany hasła użytkownika";
+         }
+         return r;
+      }
 
       //[HttpPost]
       //[Route("api/TempUser")]
@@ -90,10 +110,10 @@ namespace CarDetailingWebApi.Controllers
             var role = identity.Claims
                  .Where(c => c.Type == ClaimTypes.Role)
                  .Select(c => c.Value).FirstOrDefault();
-            if ( (identity.Name == value.Login )|| (role == "Admin") || (role =="Employee"))
+            if ((identity.Name == value.Login) || (role == "Admin") || (role == "Employee"))
             {
                value.UserId = id;
-               r= _userServices.Update(value);
+               r = _userServices.Update(value);
             }
             else
             {
@@ -126,5 +146,11 @@ namespace CarDetailingWebApi.Controllers
       {
          return _userServices.Remove(id);
       }
+   }
+   public class ChangePasswordModel
+   {
+      public string login { get; set; }
+      public string oldPassword { get; set; }
+      public string newPassword { get; set; }
    }
 }

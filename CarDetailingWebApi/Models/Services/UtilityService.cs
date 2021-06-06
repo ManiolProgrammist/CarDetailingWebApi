@@ -38,16 +38,16 @@ namespace CarDetailingWebApi.Models.Services
                 R.info = "pomyślnie wysłany email";
                 R.value = mail;
                 R.status = true;
-                return R;
+
 
             }
             catch (Exception ex)
             {
                 R.info = ex.ToString();
                 R.status = false;
-                return R;
             }
-        }
+         return R;
+      }
 
         public Result<MailMessage> SendCompanyEmail(string to, string message)
         {

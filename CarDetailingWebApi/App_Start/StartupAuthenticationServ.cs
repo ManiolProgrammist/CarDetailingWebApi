@@ -17,6 +17,7 @@ namespace CarDetailingWebApi
     {
         public void Configuration(IAppBuilder app)
         {
+
             OAuthAuthorizationServerOptions options = new OAuthAuthorizationServerOptions
             {
                 AllowInsecureHttp = true,

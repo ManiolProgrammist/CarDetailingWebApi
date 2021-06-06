@@ -10,8 +10,8 @@ namespace CarDetailingWebApi.Models.Services.OptionS
     public class DayInfoService : IDayInfoService
     {
         public IDayInfoRepository _dayInfoRepo;
-        public IDiffrentDayInfoRepository _diffR;
-        public DayInfoService(IDayInfoRepository r, IDiffrentDayInfoRepository diffR)
+        public IDifDayInfoRepository _diffR;
+        public DayInfoService(IDayInfoRepository r, IDifDayInfoRepository diffR)
         {
             _dayInfoRepo = r;
             _diffR = diffR;
@@ -31,7 +31,7 @@ namespace CarDetailingWebApi.Models.Services.OptionS
                 return r;
             }
         }
-        public Result<DiffrentDayInfo> AddIrregularDay(DayInfo item, System.DateTime dateTime)
+        public Result<DifDayInfo> AddIrregularDay(DayInfo item, System.DateTime dateTime)
         {
             return null;
         }
@@ -148,7 +148,7 @@ namespace CarDetailingWebApi.Models.Services.OptionS
 
 
 
-        private DayInfo FromDiffrentDayToDayInfo(DiffrentDayInfo d)
+        private DayInfo FromDiffrentDayToDayInfo(DifDayInfo d)
         {
             var r = new DayInfo();
             r.DayId = d.DayId;

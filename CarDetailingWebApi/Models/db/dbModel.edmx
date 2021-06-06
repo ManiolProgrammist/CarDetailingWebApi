@@ -4,22 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="CarCosmeticSalonModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="Blog">
-          <Key>
-            <PropertyRef Name="BlogId" />
-          </Key>
-          <Property Name="BlogId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="content" Type="nvarchar(max)" />
-        </EntityType>
-        <EntityType Name="BlogImages">
-          <Key>
-            <PropertyRef Name="ImageId" />
-          </Key>
-          <Property Name="ImageId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="BlogId" Type="int" Nullable="false" />
-          <Property Name="Image" Type="image" />
-        </EntityType>
+      <Schema Namespace="CarCosmeticSalonModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="DayInfo">
           <Key>
             <PropertyRef Name="DayId" />
@@ -30,7 +15,7 @@
           <Property Name="OpenHour" Type="nvarchar" MaxLength="10" />
           <Property Name="CloseHour" Type="nvarchar" MaxLength="10" />
         </EntityType>
-        <EntityType Name="DiffrentDayInfo">
+        <EntityType Name="DifDayInfo">
           <Key>
             <PropertyRef Name="DiffDayInfo" />
           </Key>
@@ -100,30 +85,6 @@
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'CarCosmeticSalon.dbo.OrdersTemplateOrdersSet' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-        <EntityType Name="OrdersTemplateOrdersSet">
-          <Key>
-            <PropertyRef Name="OrderTemplateId" />
-            <PropertyRef Name="OrderSetId" />
-          </Key>
-          <Property Name="OrderTemplateId" Type="int" Nullable="false" />
-          <Property Name="OrderSetId" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="OrdersTemplateSet">
-          <Key>
-            <PropertyRef Name="OrderSetId" />
-          </Key>
-          <Property Name="OrderSetId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="500" Nullable="false" />
-        </EntityType>
-        <EntityType Name="SocialMedia">
-          <Key>
-            <PropertyRef Name="SocialMediaId" />
-          </Key>
-          <Property Name="SocialMediaId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ShortDescripption" Type="nvarchar" MaxLength="254" />
-          <Property Name="TypeOfSocialmedia" Type="nvarchar" MaxLength="100" />
-          <Property Name="link" Type="nvarchar(max)" Nullable="false" />
-        </EntityType>
         <EntityType Name="UserImages">
           <Key>
             <PropertyRef Name="ImageId" />
@@ -164,26 +125,14 @@ warning 6002: The table/view 'CarCosmeticSalon.dbo.OrdersTemplateOrdersSet' does
           <Property Name="AccessRights" Type="int" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="255" Nullable="false" />
         </EntityType>
-        <Association Name="FK__BlogImage__BlogI__5812160E">
-          <End Role="Blog" Type="Self.Blog" Multiplicity="1" />
-          <End Role="BlogImages" Type="Self.BlogImages" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Blog">
-              <PropertyRef Name="BlogId" />
-            </Principal>
-            <Dependent Role="BlogImages">
-              <PropertyRef Name="BlogId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__DiffrentD__DayId__5EBF139D">
+        <Association Name="FK__DifDayInf__DayId__2FCF1A8A">
           <End Role="DayInfo" Type="Self.DayInfo" Multiplicity="1" />
-          <End Role="DiffrentDayInfo" Type="Self.DiffrentDayInfo" Multiplicity="*" />
+          <End Role="DifDayInfo" Type="Self.DifDayInfo" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="DayInfo">
               <PropertyRef Name="DayId" />
             </Principal>
-            <Dependent Role="DiffrentDayInfo">
+            <Dependent Role="DifDayInfo">
               <PropertyRef Name="DayId" />
             </Dependent>
           </ReferentialConstraint>
@@ -260,30 +209,6 @@ warning 6002: The table/view 'CarCosmeticSalon.dbo.OrdersTemplateOrdersSet' does
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__OrdersTem__Order__778AC167">
-          <End Role="OrdersTemplate" Type="Self.OrdersTemplate" Multiplicity="1" />
-          <End Role="OrdersTemplateOrdersSet" Type="Self.OrdersTemplateOrdersSet" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="OrdersTemplate">
-              <PropertyRef Name="OrderTemplateId" />
-            </Principal>
-            <Dependent Role="OrdersTemplateOrdersSet">
-              <PropertyRef Name="OrderTemplateId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__OrdersTem__Order__787EE5A0">
-          <End Role="OrdersTemplateSet" Type="Self.OrdersTemplateSet" Multiplicity="1" />
-          <End Role="OrdersTemplateOrdersSet" Type="Self.OrdersTemplateOrdersSet" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="OrdersTemplateSet">
-              <PropertyRef Name="OrderSetId" />
-            </Principal>
-            <Dependent Role="OrdersTemplateOrdersSet">
-              <PropertyRef Name="OrderSetId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__UserImage__UserI__08B54D69">
           <End Role="Users" Type="Self.Users" Multiplicity="1" />
           <End Role="UserImages" Type="Self.UserImages" Multiplicity="*" />
@@ -321,34 +246,20 @@ warning 6002: The table/view 'CarCosmeticSalon.dbo.OrdersTemplateOrdersSet' does
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="CarCosmeticSalonModelStoreContainer">
-          <EntitySet Name="Blog" EntityType="Self.Blog" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="BlogImages" EntityType="Self.BlogImages" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DayInfo" EntityType="Self.DayInfo" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="DiffrentDayInfo" EntityType="Self.DiffrentDayInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DifDayInfo" EntityType="Self.DifDayInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrdersInformation" EntityType="Self.OrdersInformation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrdersTemplate" EntityType="Self.OrdersTemplate" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrdersTemplateImages" EntityType="Self.OrdersTemplateImages" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrdersTemplateInformation" EntityType="Self.OrdersTemplateInformation" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="OrdersTemplateSet" EntityType="Self.OrdersTemplateSet" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="SocialMedia" EntityType="Self.SocialMedia" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserImages" EntityType="Self.UserImages" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserInformations" EntityType="Self.UserInformations" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserType" EntityType="Self.UserType" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="OrdersTemplateOrdersSet" EntityType="Self.OrdersTemplateOrdersSet" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [OrdersTemplateOrdersSet].[OrderTemplateId] AS [OrderTemplateId], 
-    [OrdersTemplateOrdersSet].[OrderSetId] AS [OrderSetId]
-    FROM [dbo].[OrdersTemplateOrdersSet] AS [OrdersTemplateOrdersSet]</DefiningQuery>
-          </EntitySet>
-          <AssociationSet Name="FK__BlogImage__BlogI__5812160E" Association="Self.FK__BlogImage__BlogI__5812160E">
-            <End Role="Blog" EntitySet="Blog" />
-            <End Role="BlogImages" EntitySet="BlogImages" />
-          </AssociationSet>
-          <AssociationSet Name="FK__DiffrentD__DayId__5EBF139D" Association="Self.FK__DiffrentD__DayId__5EBF139D">
+          <AssociationSet Name="FK__DifDayInf__DayId__2FCF1A8A" Association="Self.FK__DifDayInf__DayId__2FCF1A8A">
             <End Role="DayInfo" EntitySet="DayInfo" />
-            <End Role="DiffrentDayInfo" EntitySet="DiffrentDayInfo" />
+            <End Role="DifDayInfo" EntitySet="DifDayInfo" />
           </AssociationSet>
           <AssociationSet Name="FK__Orders__CreateOr__7C4F7684" Association="Self.FK__Orders__CreateOr__7C4F7684">
             <End Role="Users" EntitySet="Users" />
@@ -374,14 +285,6 @@ warning 6002: The table/view 'CarCosmeticSalon.dbo.OrdersTemplateOrdersSet' does
             <End Role="OrdersTemplate" EntitySet="OrdersTemplate" />
             <End Role="OrdersTemplateImages" EntitySet="OrdersTemplateImages" />
           </AssociationSet>
-          <AssociationSet Name="FK__OrdersTem__Order__778AC167" Association="Self.FK__OrdersTem__Order__778AC167">
-            <End Role="OrdersTemplate" EntitySet="OrdersTemplate" />
-            <End Role="OrdersTemplateOrdersSet" EntitySet="OrdersTemplateOrdersSet" />
-          </AssociationSet>
-          <AssociationSet Name="FK__OrdersTem__Order__787EE5A0" Association="Self.FK__OrdersTem__Order__787EE5A0">
-            <End Role="OrdersTemplateSet" EntitySet="OrdersTemplateSet" />
-            <End Role="OrdersTemplateOrdersSet" EntitySet="OrdersTemplateOrdersSet" />
-          </AssociationSet>
           <AssociationSet Name="FK__UserImage__UserI__08B54D69" Association="Self.FK__UserImage__UserI__08B54D69">
             <End Role="Users" EntitySet="Users" />
             <End Role="UserImages" EntitySet="UserImages" />
@@ -395,104 +298,23 @@ warning 6002: The table/view 'CarCosmeticSalon.dbo.OrdersTemplateOrdersSet' does
             <End Role="Users" EntitySet="Users" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="CarCosmeticSalonModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityContainer Name="CarCosmeticSalonEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Blogs" EntityType="CarCosmeticSalonModel.Blog" />
-          <EntitySet Name="BlogImages" EntityType="CarCosmeticSalonModel.BlogImage" />
-          <EntitySet Name="DayInfoes" EntityType="CarCosmeticSalonModel.DayInfo" />
-          <EntitySet Name="DiffrentDayInfoes" EntityType="CarCosmeticSalonModel.DiffrentDayInfo" />
-          <EntitySet Name="Orders" EntityType="CarCosmeticSalonModel.Order" />
-          <EntitySet Name="OrdersInformations" EntityType="CarCosmeticSalonModel.OrdersInformation" />
-          <EntitySet Name="OrdersTemplates" EntityType="CarCosmeticSalonModel.OrdersTemplate" />
-          <EntitySet Name="OrdersTemplateImages" EntityType="CarCosmeticSalonModel.OrdersTemplateImage" />
-          <EntitySet Name="OrdersTemplateInformations" EntityType="CarCosmeticSalonModel.OrdersTemplateInformation" />
-          <EntitySet Name="OrdersTemplateSets" EntityType="CarCosmeticSalonModel.OrdersTemplateSet" />
-          <EntitySet Name="SocialMedias" EntityType="CarCosmeticSalonModel.SocialMedia" />
-          <EntitySet Name="UserImages" EntityType="CarCosmeticSalonModel.UserImage" />
-          <EntitySet Name="UserInformations" EntityType="CarCosmeticSalonModel.UserInformation" />
-          <EntitySet Name="Users" EntityType="CarCosmeticSalonModel.User" />
-          <EntitySet Name="UserTypes" EntityType="CarCosmeticSalonModel.UserType" />
-          <AssociationSet Name="FK__BlogImage__BlogI__5812160E" Association="CarCosmeticSalonModel.FK__BlogImage__BlogI__5812160E">
-            <End Role="Blog" EntitySet="Blogs" />
-            <End Role="BlogImage" EntitySet="BlogImages" />
-          </AssociationSet>
-          <AssociationSet Name="FK__DiffrentD__DayId__5EBF139D" Association="CarCosmeticSalonModel.FK__DiffrentD__DayId__5EBF139D">
-            <End Role="DayInfo" EntitySet="DayInfoes" />
-            <End Role="DiffrentDayInfo" EntitySet="DiffrentDayInfoes" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Orders__CreateOr__7C4F7684" Association="CarCosmeticSalonModel.FK__Orders__CreateOr__7C4F7684">
-            <End Role="User" EntitySet="Users" />
-            <End Role="Order" EntitySet="Orders" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Orders__OrderTem__7D439ABD" Association="CarCosmeticSalonModel.FK__Orders__OrderTem__7D439ABD">
-            <End Role="OrdersTemplate" EntitySet="OrdersTemplates" />
-            <End Role="Order" EntitySet="Orders" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Orders__UserId__7B5B524B" Association="CarCosmeticSalonModel.FK__Orders__UserId__7B5B524B">
-            <End Role="User" EntitySet="Users" />
-            <End Role="Order" EntitySet="Orders" />
-          </AssociationSet>
-          <AssociationSet Name="FK__OrdersInf__Order__02FC7413" Association="CarCosmeticSalonModel.FK__OrdersInf__Order__02FC7413">
-            <End Role="Order" EntitySet="Orders" />
-            <End Role="OrdersInformation" EntitySet="OrdersInformations" />
-          </AssociationSet>
-          <AssociationSet Name="FK__OrdersTem__Order__05D8E0BE" Association="CarCosmeticSalonModel.FK__OrdersTem__Order__05D8E0BE">
-            <End Role="OrdersTemplate" EntitySet="OrdersTemplates" />
-            <End Role="OrdersTemplateInformation" EntitySet="OrdersTemplateInformations" />
-          </AssociationSet>
-          <AssociationSet Name="FK__OrdersTem__Order__0B91BA14" Association="CarCosmeticSalonModel.FK__OrdersTem__Order__0B91BA14">
-            <End Role="OrdersTemplate" EntitySet="OrdersTemplates" />
-            <End Role="OrdersTemplateImage" EntitySet="OrdersTemplateImages" />
-          </AssociationSet>
-          <AssociationSet Name="FK__UserImage__UserI__08B54D69" Association="CarCosmeticSalonModel.FK__UserImage__UserI__08B54D69">
-            <End Role="User" EntitySet="Users" />
-            <End Role="UserImage" EntitySet="UserImages" />
-          </AssociationSet>
-          <AssociationSet Name="FK__UserInfor__UserI__00200768" Association="CarCosmeticSalonModel.FK__UserInfor__UserI__00200768">
-            <End Role="User" EntitySet="Users" />
-            <End Role="UserInformation" EntitySet="UserInformations" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Users__UserTypeI__71D1E811" Association="CarCosmeticSalonModel.FK__Users__UserTypeI__71D1E811">
-            <End Role="UserType" EntitySet="UserTypes" />
-            <End Role="User" EntitySet="Users" />
-          </AssociationSet>
-          <AssociationSet Name="OrdersTemplateOrdersSet" Association="CarCosmeticSalonModel.OrdersTemplateOrdersSet">
-            <End Role="OrdersTemplate" EntitySet="OrdersTemplates" />
-            <End Role="OrdersTemplateSet" EntitySet="OrdersTemplateSets" />
-          </AssociationSet>
-        </EntityContainer>
-        <EntityType Name="Blog">
-          <Key>
-            <PropertyRef Name="BlogId" />
-          </Key>
-          <Property Name="BlogId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="BlogImages" Relationship="CarCosmeticSalonModel.FK__BlogImage__BlogI__5812160E" FromRole="Blog" ToRole="BlogImage" />
-        </EntityType>
-        <EntityType Name="BlogImage">
-          <Key>
-            <PropertyRef Name="ImageId" />
-          </Key>
-          <Property Name="ImageId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="BlogId" Type="Int32" Nullable="false" />
-          <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" />
-          <NavigationProperty Name="Blog" Relationship="CarCosmeticSalonModel.FK__BlogImage__BlogI__5812160E" FromRole="BlogImage" ToRole="Blog" />
-        </EntityType>
         <EntityType Name="DayInfo">
           <Key>
             <PropertyRef Name="DayId" />
           </Key>
           <Property Name="DayId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="IsOpen" Type="Boolean" Nullable="false" />
           <Property Name="OpenHour" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="CloseHour" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="DiffrentDayInfoes" Relationship="CarCosmeticSalonModel.FK__DiffrentD__DayId__5EBF139D" FromRole="DayInfo" ToRole="DiffrentDayInfo" />
+          <NavigationProperty Name="DifDayInfoes" Relationship="Self.FK__DifDayInf__DayId__2FCF1A8A" FromRole="DayInfo" ToRole="DifDayInfo" />
         </EntityType>
-        <EntityType Name="DiffrentDayInfo">
+        <EntityType Name="DifDayInfo">
           <Key>
             <PropertyRef Name="DiffDayInfo" />
           </Key>
@@ -502,7 +324,7 @@ warning 6002: The table/view 'CarCosmeticSalon.dbo.OrdersTemplateOrdersSet' does
           <Property Name="OpenHour" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="CloseHour" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="ExactChangeDate" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="DayInfo" Relationship="CarCosmeticSalonModel.FK__DiffrentD__DayId__5EBF139D" FromRole="DiffrentDayInfo" ToRole="DayInfo" />
+          <NavigationProperty Name="DayInfo" Relationship="Self.FK__DifDayInf__DayId__2FCF1A8A" FromRole="DifDayInfo" ToRole="DayInfo" />
         </EntityType>
         <EntityType Name="Order">
           <Key>
@@ -522,10 +344,10 @@ warning 6002: The table/view 'CarCosmeticSalon.dbo.OrdersTemplateOrdersSet' does
           <Property Name="IsOrderStarted" Type="Boolean" Nullable="false" />
           <Property Name="IsPaid" Type="Boolean" Nullable="false" />
           <Property Name="PayUOrderId" Type="String" MaxLength="254" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="User" Relationship="CarCosmeticSalonModel.FK__Orders__CreateOr__7C4F7684" FromRole="Order" ToRole="User" />
-          <NavigationProperty Name="OrdersTemplate" Relationship="CarCosmeticSalonModel.FK__Orders__OrderTem__7D439ABD" FromRole="Order" ToRole="OrdersTemplate" />
-          <NavigationProperty Name="User1" Relationship="CarCosmeticSalonModel.FK__Orders__UserId__7B5B524B" FromRole="Order" ToRole="User" />
-          <NavigationProperty Name="OrdersInformations" Relationship="CarCosmeticSalonModel.FK__OrdersInf__Order__02FC7413" FromRole="Order" ToRole="OrdersInformation" />
+          <NavigationProperty Name="User" Relationship="Self.FK__Orders__CreateOr__7C4F7684" FromRole="Orders" ToRole="Users" />
+          <NavigationProperty Name="OrdersTemplate" Relationship="Self.FK__Orders__OrderTem__7D439ABD" FromRole="Orders" ToRole="OrdersTemplate" />
+          <NavigationProperty Name="User1" Relationship="Self.FK__Orders__UserId__7B5B524B" FromRole="Orders" ToRole="Users" />
+          <NavigationProperty Name="OrdersInformations" Relationship="Self.FK__OrdersInf__Order__02FC7413" FromRole="Orders" ToRole="OrdersInformation" />
         </EntityType>
         <EntityType Name="OrdersInformation">
           <Key>
@@ -533,24 +355,23 @@ warning 6002: The table/view 'CarCosmeticSalon.dbo.OrdersTemplateOrdersSet' does
           </Key>
           <Property Name="InformationId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="OrderId" Type="Int32" Nullable="false" />
-          <Property Name="TypeOfInformation" Type="String" Nullable="false" MaxLength="254" FixedLength="false" Unicode="true" />
+          <Property Name="TypeOfInformation" Type="String" MaxLength="254" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Information" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Order" Relationship="CarCosmeticSalonModel.FK__OrdersInf__Order__02FC7413" FromRole="OrdersInformation" ToRole="Order" />
+          <NavigationProperty Name="Order" Relationship="Self.FK__OrdersInf__Order__02FC7413" FromRole="OrdersInformation" ToRole="Orders" />
         </EntityType>
         <EntityType Name="OrdersTemplate">
           <Key>
             <PropertyRef Name="OrderTemplateId" />
           </Key>
           <Property Name="OrderTemplateId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="MaxCost" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
-          <Property Name="MinCost" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="MaxCost" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="MinCost" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="AdditionalInformation" Type="String" MaxLength="3000" FixedLength="false" Unicode="true" />
           <Property Name="ExpectedTime" Type="Time" Precision="7" />
-          <NavigationProperty Name="Orders" Relationship="CarCosmeticSalonModel.FK__Orders__OrderTem__7D439ABD" FromRole="OrdersTemplate" ToRole="Order" />
-          <NavigationProperty Name="OrdersTemplateInformations" Relationship="CarCosmeticSalonModel.FK__OrdersTem__Order__05D8E0BE" FromRole="OrdersTemplate" ToRole="OrdersTemplateInformation" />
-          <NavigationProperty Name="OrdersTemplateImages" Relationship="CarCosmeticSalonModel.FK__OrdersTem__Order__0B91BA14" FromRole="OrdersTemplate" ToRole="OrdersTemplateImage" />
-          <NavigationProperty Name="OrdersTemplateSets" Relationship="CarCosmeticSalonModel.OrdersTemplateOrdersSet" FromRole="OrdersTemplate" ToRole="OrdersTemplateSet" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK__Orders__OrderTem__7D439ABD" FromRole="OrdersTemplate" ToRole="Orders" />
+          <NavigationProperty Name="OrdersTemplateInformations" Relationship="Self.FK__OrdersTem__Order__05D8E0BE" FromRole="OrdersTemplate" ToRole="OrdersTemplateInformation" />
+          <NavigationProperty Name="OrdersTemplateImages" Relationship="Self.FK__OrdersTem__Order__0B91BA14" FromRole="OrdersTemplate" ToRole="OrdersTemplateImages" />
         </EntityType>
         <EntityType Name="OrdersTemplateImage">
           <Key>
@@ -560,7 +381,7 @@ warning 6002: The table/view 'CarCosmeticSalon.dbo.OrdersTemplateOrdersSet' does
           <Property Name="OrderTemplateId" Type="Int32" Nullable="false" />
           <Property Name="AdditionalInformation" Type="String" MaxLength="254" FixedLength="false" Unicode="true" />
           <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" />
-          <NavigationProperty Name="OrdersTemplate" Relationship="CarCosmeticSalonModel.FK__OrdersTem__Order__0B91BA14" FromRole="OrdersTemplateImage" ToRole="OrdersTemplate" />
+          <NavigationProperty Name="OrdersTemplate" Relationship="Self.FK__OrdersTem__Order__0B91BA14" FromRole="OrdersTemplateImages" ToRole="OrdersTemplate" />
         </EntityType>
         <EntityType Name="OrdersTemplateInformation">
           <Key>
@@ -568,26 +389,9 @@ warning 6002: The table/view 'CarCosmeticSalon.dbo.OrdersTemplateOrdersSet' does
           </Key>
           <Property Name="InformationId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="OrderTemplateId" Type="Int32" Nullable="false" />
-          <Property Name="TypeOfInformation" Type="String" Nullable="false" MaxLength="254" FixedLength="false" Unicode="true" />
+          <Property Name="TypeOfInformation" Type="String" MaxLength="254" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Information" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="OrdersTemplate" Relationship="CarCosmeticSalonModel.FK__OrdersTem__Order__05D8E0BE" FromRole="OrdersTemplateInformation" ToRole="OrdersTemplate" />
-        </EntityType>
-        <EntityType Name="OrdersTemplateSet">
-          <Key>
-            <PropertyRef Name="OrderSetId" />
-          </Key>
-          <Property Name="OrderSetId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="OrdersTemplates" Relationship="CarCosmeticSalonModel.OrdersTemplateOrdersSet" FromRole="OrdersTemplateSet" ToRole="OrdersTemplate" />
-        </EntityType>
-        <EntityType Name="SocialMedia">
-          <Key>
-            <PropertyRef Name="SocialMediaId" />
-          </Key>
-          <Property Name="SocialMediaId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ShortDescripption" Type="String" MaxLength="254" FixedLength="false" Unicode="true" />
-          <Property Name="TypeOfSocialmedia" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="link" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="OrdersTemplate" Relationship="Self.FK__OrdersTem__Order__05D8E0BE" FromRole="OrdersTemplateInformation" ToRole="OrdersTemplate" />
         </EntityType>
         <EntityType Name="UserImage">
           <Key>
@@ -597,7 +401,7 @@ warning 6002: The table/view 'CarCosmeticSalon.dbo.OrdersTemplateOrdersSet' does
           <Property Name="UserId" Type="Int32" Nullable="false" />
           <Property Name="AdditionalInformation" Type="String" MaxLength="254" FixedLength="false" Unicode="true" />
           <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" />
-          <NavigationProperty Name="User" Relationship="CarCosmeticSalonModel.FK__UserImage__UserI__08B54D69" FromRole="UserImage" ToRole="User" />
+          <NavigationProperty Name="User" Relationship="Self.FK__UserImage__UserI__08B54D69" FromRole="UserImages" ToRole="Users" />
         </EntityType>
         <EntityType Name="UserInformation">
           <Key>
@@ -605,28 +409,28 @@ warning 6002: The table/view 'CarCosmeticSalon.dbo.OrdersTemplateOrdersSet' does
           </Key>
           <Property Name="InformationId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="UserId" Type="Int32" />
-          <Property Name="TypeOfInformation" Type="String" Nullable="false" MaxLength="254" FixedLength="false" Unicode="true" />
+          <Property Name="TypeOfInformation" Type="String" MaxLength="254" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Information" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="User" Relationship="CarCosmeticSalonModel.FK__UserInfor__UserI__00200768" FromRole="UserInformation" ToRole="User" />
+          <NavigationProperty Name="User" Relationship="Self.FK__UserInfor__UserI__00200768" FromRole="UserInformations" ToRole="Users" />
         </EntityType>
         <EntityType Name="User">
           <Key>
             <PropertyRef Name="UserId" />
           </Key>
           <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Login" Type="String" Nullable="false" MaxLength="254" FixedLength="false" Unicode="true" />
-          <Property Name="Password" Type="String" Nullable="false" MaxLength="254" FixedLength="false" Unicode="true" />
-          <Property Name="Email" Type="String" Nullable="false" MaxLength="254" FixedLength="false" Unicode="true" />
-          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="254" FixedLength="false" Unicode="true" />
-          <Property Name="Surname" Type="String" Nullable="false" MaxLength="254" FixedLength="false" Unicode="true" />
-          <Property Name="PhoneNumber" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Login" Type="String" MaxLength="254" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="254" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="254" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="254" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Surname" Type="String" MaxLength="254" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="AccoutCreateDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="UserTypeId" Type="Int32" />
-          <NavigationProperty Name="Orders" Relationship="CarCosmeticSalonModel.FK__Orders__CreateOr__7C4F7684" FromRole="User" ToRole="Order" />
-          <NavigationProperty Name="Orders1" Relationship="CarCosmeticSalonModel.FK__Orders__UserId__7B5B524B" FromRole="User" ToRole="Order" />
-          <NavigationProperty Name="UserImages" Relationship="CarCosmeticSalonModel.FK__UserImage__UserI__08B54D69" FromRole="User" ToRole="UserImage" />
-          <NavigationProperty Name="UserInformations" Relationship="CarCosmeticSalonModel.FK__UserInfor__UserI__00200768" FromRole="User" ToRole="UserInformation" />
-          <NavigationProperty Name="UserType" Relationship="CarCosmeticSalonModel.FK__Users__UserTypeI__71D1E811" FromRole="User" ToRole="UserType" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK__Orders__CreateOr__7C4F7684" FromRole="Users" ToRole="Orders" />
+          <NavigationProperty Name="Orders1" Relationship="Self.FK__Orders__UserId__7B5B524B" FromRole="Users" ToRole="Orders" />
+          <NavigationProperty Name="UserImages" Relationship="Self.FK__UserImage__UserI__08B54D69" FromRole="Users" ToRole="UserImages" />
+          <NavigationProperty Name="UserInformations" Relationship="Self.FK__UserInfor__UserI__00200768" FromRole="Users" ToRole="UserInformations" />
+          <NavigationProperty Name="UserType" Relationship="Self.FK__Users__UserTypeI__71D1E811" FromRole="Users" ToRole="UserType" />
         </EntityType>
         <EntityType Name="UserType">
           <Key>
@@ -634,74 +438,62 @@ warning 6002: The table/view 'CarCosmeticSalon.dbo.OrdersTemplateOrdersSet' does
           </Key>
           <Property Name="UserTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="AccessRights" Type="Int32" Nullable="false" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Users" Relationship="CarCosmeticSalonModel.FK__Users__UserTypeI__71D1E811" FromRole="UserType" ToRole="User" />
+          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Users" Relationship="Self.FK__Users__UserTypeI__71D1E811" FromRole="UserType" ToRole="Users" />
         </EntityType>
-        <Association Name="FK__BlogImage__BlogI__5812160E">
-          <End Type="CarCosmeticSalonModel.Blog" Role="Blog" Multiplicity="1" />
-          <End Type="CarCosmeticSalonModel.BlogImage" Role="BlogImage" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Blog">
-              <PropertyRef Name="BlogId" />
-            </Principal>
-            <Dependent Role="BlogImage">
-              <PropertyRef Name="BlogId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__DiffrentD__DayId__5EBF139D">
-          <End Type="CarCosmeticSalonModel.DayInfo" Role="DayInfo" Multiplicity="1" />
-          <End Type="CarCosmeticSalonModel.DiffrentDayInfo" Role="DiffrentDayInfo" Multiplicity="*" />
+        <Association Name="FK__DifDayInf__DayId__2FCF1A8A">
+          <End Role="DayInfo" Type="Self.DayInfo" Multiplicity="1" />
+          <End Role="DifDayInfo" Type="Self.DifDayInfo" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="DayInfo">
               <PropertyRef Name="DayId" />
             </Principal>
-            <Dependent Role="DiffrentDayInfo">
+            <Dependent Role="DifDayInfo">
               <PropertyRef Name="DayId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__Orders__CreateOr__7C4F7684">
-          <End Type="CarCosmeticSalonModel.User" Role="User" Multiplicity="1" />
-          <End Type="CarCosmeticSalonModel.Order" Role="Order" Multiplicity="*" />
+          <End Role="Users" Type="Self.User" Multiplicity="1" />
+          <End Role="Orders" Type="Self.Order" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="User">
+            <Principal Role="Users">
               <PropertyRef Name="UserId" />
             </Principal>
-            <Dependent Role="Order">
+            <Dependent Role="Orders">
               <PropertyRef Name="CreateOrderUserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__Orders__OrderTem__7D439ABD">
-          <End Type="CarCosmeticSalonModel.OrdersTemplate" Role="OrdersTemplate" Multiplicity="1" />
-          <End Type="CarCosmeticSalonModel.Order" Role="Order" Multiplicity="*" />
+          <End Role="OrdersTemplate" Type="Self.OrdersTemplate" Multiplicity="1" />
+          <End Role="Orders" Type="Self.Order" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="OrdersTemplate">
               <PropertyRef Name="OrderTemplateId" />
             </Principal>
-            <Dependent Role="Order">
+            <Dependent Role="Orders">
               <PropertyRef Name="OrderTemplateId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__Orders__UserId__7B5B524B">
-          <End Type="CarCosmeticSalonModel.User" Role="User" Multiplicity="1" />
-          <End Type="CarCosmeticSalonModel.Order" Role="Order" Multiplicity="*" />
+          <End Role="Users" Type="Self.User" Multiplicity="1" />
+          <End Role="Orders" Type="Self.Order" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="User">
+            <Principal Role="Users">
               <PropertyRef Name="UserId" />
             </Principal>
-            <Dependent Role="Order">
+            <Dependent Role="Orders">
               <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__OrdersInf__Order__02FC7413">
-          <End Type="CarCosmeticSalonModel.Order" Role="Order" Multiplicity="1" />
-          <End Type="CarCosmeticSalonModel.OrdersInformation" Role="OrdersInformation" Multiplicity="*" />
+          <End Role="Orders" Type="Self.Order" Multiplicity="1" />
+          <End Role="OrdersInformation" Type="Self.OrdersInformation" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Order">
+            <Principal Role="Orders">
               <PropertyRef Name="OrderId" />
             </Principal>
             <Dependent Role="OrdersInformation">
@@ -710,8 +502,8 @@ warning 6002: The table/view 'CarCosmeticSalon.dbo.OrdersTemplateOrdersSet' does
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__OrdersTem__Order__05D8E0BE">
-          <End Type="CarCosmeticSalonModel.OrdersTemplate" Role="OrdersTemplate" Multiplicity="1" />
-          <End Type="CarCosmeticSalonModel.OrdersTemplateInformation" Role="OrdersTemplateInformation" Multiplicity="*" />
+          <End Role="OrdersTemplate" Type="Self.OrdersTemplate" Multiplicity="1" />
+          <End Role="OrdersTemplateInformation" Type="Self.OrdersTemplateInformation" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="OrdersTemplate">
               <PropertyRef Name="OrderTemplateId" />
@@ -722,235 +514,241 @@ warning 6002: The table/view 'CarCosmeticSalon.dbo.OrdersTemplateOrdersSet' does
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__OrdersTem__Order__0B91BA14">
-          <End Type="CarCosmeticSalonModel.OrdersTemplate" Role="OrdersTemplate" Multiplicity="1" />
-          <End Type="CarCosmeticSalonModel.OrdersTemplateImage" Role="OrdersTemplateImage" Multiplicity="*" />
+          <End Role="OrdersTemplate" Type="Self.OrdersTemplate" Multiplicity="1" />
+          <End Role="OrdersTemplateImages" Type="Self.OrdersTemplateImage" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="OrdersTemplate">
               <PropertyRef Name="OrderTemplateId" />
             </Principal>
-            <Dependent Role="OrdersTemplateImage">
+            <Dependent Role="OrdersTemplateImages">
               <PropertyRef Name="OrderTemplateId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__UserImage__UserI__08B54D69">
-          <End Type="CarCosmeticSalonModel.User" Role="User" Multiplicity="1" />
-          <End Type="CarCosmeticSalonModel.UserImage" Role="UserImage" Multiplicity="*" />
+          <End Role="Users" Type="Self.User" Multiplicity="1" />
+          <End Role="UserImages" Type="Self.UserImage" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="User">
+            <Principal Role="Users">
               <PropertyRef Name="UserId" />
             </Principal>
-            <Dependent Role="UserImage">
+            <Dependent Role="UserImages">
               <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__UserInfor__UserI__00200768">
-          <End Type="CarCosmeticSalonModel.User" Role="User" Multiplicity="0..1" />
-          <End Type="CarCosmeticSalonModel.UserInformation" Role="UserInformation" Multiplicity="*" />
+          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+          <End Role="UserInformations" Type="Self.UserInformation" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="User">
+            <Principal Role="Users">
               <PropertyRef Name="UserId" />
             </Principal>
-            <Dependent Role="UserInformation">
+            <Dependent Role="UserInformations">
               <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__Users__UserTypeI__71D1E811">
-          <End Type="CarCosmeticSalonModel.UserType" Role="UserType" Multiplicity="0..1" />
-          <End Type="CarCosmeticSalonModel.User" Role="User" Multiplicity="*" />
+          <End Role="UserType" Type="Self.UserType" Multiplicity="0..1" />
+          <End Role="Users" Type="Self.User" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="UserType">
               <PropertyRef Name="UserTypeId" />
             </Principal>
-            <Dependent Role="User">
+            <Dependent Role="Users">
               <PropertyRef Name="UserTypeId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="OrdersTemplateOrdersSet">
-          <End Type="CarCosmeticSalonModel.OrdersTemplate" Role="OrdersTemplate" Multiplicity="*" />
-          <End Type="CarCosmeticSalonModel.OrdersTemplateSet" Role="OrdersTemplateSet" Multiplicity="*" />
-        </Association>
-        </Schema>
+        <EntityContainer Name="CarCosmeticSalonEntities2" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="DayInfoes" EntityType="Self.DayInfo" />
+          <EntitySet Name="DifDayInfoes" EntityType="Self.DifDayInfo" />
+          <EntitySet Name="Orders" EntityType="Self.Order" />
+          <EntitySet Name="OrdersInformations" EntityType="Self.OrdersInformation" />
+          <EntitySet Name="OrdersTemplates" EntityType="Self.OrdersTemplate" />
+          <EntitySet Name="OrdersTemplateImages" EntityType="Self.OrdersTemplateImage" />
+          <EntitySet Name="OrdersTemplateInformations" EntityType="Self.OrdersTemplateInformation" />
+          <EntitySet Name="UserImages" EntityType="Self.UserImage" />
+          <EntitySet Name="UserInformations" EntityType="Self.UserInformation" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <EntitySet Name="UserTypes" EntityType="Self.UserType" />
+          <AssociationSet Name="FK__DifDayInf__DayId__2FCF1A8A" Association="Self.FK__DifDayInf__DayId__2FCF1A8A">
+            <End Role="DayInfo" EntitySet="DayInfoes" />
+            <End Role="DifDayInfo" EntitySet="DifDayInfoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Orders__CreateOr__7C4F7684" Association="Self.FK__Orders__CreateOr__7C4F7684">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Orders__OrderTem__7D439ABD" Association="Self.FK__Orders__OrderTem__7D439ABD">
+            <End Role="OrdersTemplate" EntitySet="OrdersTemplates" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Orders__UserId__7B5B524B" Association="Self.FK__Orders__UserId__7B5B524B">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__OrdersInf__Order__02FC7413" Association="Self.FK__OrdersInf__Order__02FC7413">
+            <End Role="Orders" EntitySet="Orders" />
+            <End Role="OrdersInformation" EntitySet="OrdersInformations" />
+          </AssociationSet>
+          <AssociationSet Name="FK__OrdersTem__Order__05D8E0BE" Association="Self.FK__OrdersTem__Order__05D8E0BE">
+            <End Role="OrdersTemplate" EntitySet="OrdersTemplates" />
+            <End Role="OrdersTemplateInformation" EntitySet="OrdersTemplateInformations" />
+          </AssociationSet>
+          <AssociationSet Name="FK__OrdersTem__Order__0B91BA14" Association="Self.FK__OrdersTem__Order__0B91BA14">
+            <End Role="OrdersTemplate" EntitySet="OrdersTemplates" />
+            <End Role="OrdersTemplateImages" EntitySet="OrdersTemplateImages" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserImage__UserI__08B54D69" Association="Self.FK__UserImage__UserI__08B54D69">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UserImages" EntitySet="UserImages" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserInfor__UserI__00200768" Association="Self.FK__UserInfor__UserI__00200768">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UserInformations" EntitySet="UserInformations" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Users__UserTypeI__71D1E811" Association="Self.FK__Users__UserTypeI__71D1E811">
+            <End Role="UserType" EntitySet="UserTypes" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="CarCosmeticSalonModelStoreContainer" CdmEntityContainer="CarCosmeticSalonEntities">
-          <EntitySetMapping Name="Blogs">
-            <EntityTypeMapping TypeName="CarCosmeticSalonModel.Blog">
-              <MappingFragment StoreEntitySet="Blog">
-                <ScalarProperty Name="content" ColumnName="content" />
-                <ScalarProperty Name="BlogId" ColumnName="BlogId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="BlogImages">
-            <EntityTypeMapping TypeName="CarCosmeticSalonModel.BlogImage">
-              <MappingFragment StoreEntitySet="BlogImages">
-                <ScalarProperty Name="Image" ColumnName="Image" />
-                <ScalarProperty Name="BlogId" ColumnName="BlogId" />
-                <ScalarProperty Name="ImageId" ColumnName="ImageId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
+        <EntityContainerMapping StorageEntityContainer="CarCosmeticSalonModelStoreContainer" CdmEntityContainer="CarCosmeticSalonEntities2">
           <EntitySetMapping Name="DayInfoes">
             <EntityTypeMapping TypeName="CarCosmeticSalonModel.DayInfo">
               <MappingFragment StoreEntitySet="DayInfo">
-                <ScalarProperty Name="CloseHour" ColumnName="CloseHour" />
-                <ScalarProperty Name="OpenHour" ColumnName="OpenHour" />
-                <ScalarProperty Name="IsOpen" ColumnName="IsOpen" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="DayId" ColumnName="DayId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="IsOpen" ColumnName="IsOpen" />
+                <ScalarProperty Name="OpenHour" ColumnName="OpenHour" />
+                <ScalarProperty Name="CloseHour" ColumnName="CloseHour" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="DiffrentDayInfoes">
-            <EntityTypeMapping TypeName="CarCosmeticSalonModel.DiffrentDayInfo">
-              <MappingFragment StoreEntitySet="DiffrentDayInfo">
-                <ScalarProperty Name="ExactChangeDate" ColumnName="ExactChangeDate" />
-                <ScalarProperty Name="CloseHour" ColumnName="CloseHour" />
-                <ScalarProperty Name="OpenHour" ColumnName="OpenHour" />
-                <ScalarProperty Name="IsOpen" ColumnName="IsOpen" />
-                <ScalarProperty Name="DayId" ColumnName="DayId" />
+          <EntitySetMapping Name="DifDayInfoes">
+            <EntityTypeMapping TypeName="CarCosmeticSalonModel.DifDayInfo">
+              <MappingFragment StoreEntitySet="DifDayInfo">
                 <ScalarProperty Name="DiffDayInfo" ColumnName="DiffDayInfo" />
+                <ScalarProperty Name="DayId" ColumnName="DayId" />
+                <ScalarProperty Name="IsOpen" ColumnName="IsOpen" />
+                <ScalarProperty Name="OpenHour" ColumnName="OpenHour" />
+                <ScalarProperty Name="CloseHour" ColumnName="CloseHour" />
+                <ScalarProperty Name="ExactChangeDate" ColumnName="ExactChangeDate" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Orders">
             <EntityTypeMapping TypeName="CarCosmeticSalonModel.Order">
               <MappingFragment StoreEntitySet="Orders">
-                <ScalarProperty Name="PayUOrderId" ColumnName="PayUOrderId" />
-                <ScalarProperty Name="IsPaid" ColumnName="IsPaid" />
-                <ScalarProperty Name="IsOrderStarted" ColumnName="IsOrderStarted" />
-                <ScalarProperty Name="IsOrderCompleted" ColumnName="IsOrderCompleted" />
-                <ScalarProperty Name="Cost" ColumnName="Cost" />
-                <ScalarProperty Name="delays" ColumnName="delays" />
-                <ScalarProperty Name="StartOfOrder" ColumnName="StartOfOrder" />
-                <ScalarProperty Name="CompletedOrderDate" ColumnName="CompletedOrderDate" />
-                <ScalarProperty Name="ExpectedStartOfOrder" ColumnName="ExpectedStartOfOrder" />
-                <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
-                <ScalarProperty Name="OrderTemplateId" ColumnName="OrderTemplateId" />
-                <ScalarProperty Name="CreateOrderUserId" ColumnName="CreateOrderUserId" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="CreateOrderUserId" ColumnName="CreateOrderUserId" />
+                <ScalarProperty Name="OrderTemplateId" ColumnName="OrderTemplateId" />
+                <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+                <ScalarProperty Name="ExpectedStartOfOrder" ColumnName="ExpectedStartOfOrder" />
+                <ScalarProperty Name="CompletedOrderDate" ColumnName="CompletedOrderDate" />
+                <ScalarProperty Name="StartOfOrder" ColumnName="StartOfOrder" />
+                <ScalarProperty Name="delays" ColumnName="delays" />
+                <ScalarProperty Name="Cost" ColumnName="Cost" />
+                <ScalarProperty Name="IsOrderCompleted" ColumnName="IsOrderCompleted" />
+                <ScalarProperty Name="IsOrderStarted" ColumnName="IsOrderStarted" />
+                <ScalarProperty Name="IsPaid" ColumnName="IsPaid" />
+                <ScalarProperty Name="PayUOrderId" ColumnName="PayUOrderId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="OrdersInformations">
             <EntityTypeMapping TypeName="CarCosmeticSalonModel.OrdersInformation">
               <MappingFragment StoreEntitySet="OrdersInformation">
-                <ScalarProperty Name="Information" ColumnName="Information" />
-                <ScalarProperty Name="TypeOfInformation" ColumnName="TypeOfInformation" />
-                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
                 <ScalarProperty Name="InformationId" ColumnName="InformationId" />
+                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+                <ScalarProperty Name="TypeOfInformation" ColumnName="TypeOfInformation" />
+                <ScalarProperty Name="Information" ColumnName="Information" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="OrdersTemplates">
             <EntityTypeMapping TypeName="CarCosmeticSalonModel.OrdersTemplate">
               <MappingFragment StoreEntitySet="OrdersTemplate">
-                <ScalarProperty Name="ExpectedTime" ColumnName="ExpectedTime" />
-                <ScalarProperty Name="AdditionalInformation" ColumnName="AdditionalInformation" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="MinCost" ColumnName="MinCost" />
-                <ScalarProperty Name="MaxCost" ColumnName="MaxCost" />
                 <ScalarProperty Name="OrderTemplateId" ColumnName="OrderTemplateId" />
+                <ScalarProperty Name="MaxCost" ColumnName="MaxCost" />
+                <ScalarProperty Name="MinCost" ColumnName="MinCost" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="AdditionalInformation" ColumnName="AdditionalInformation" />
+                <ScalarProperty Name="ExpectedTime" ColumnName="ExpectedTime" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="OrdersTemplateImages">
             <EntityTypeMapping TypeName="CarCosmeticSalonModel.OrdersTemplateImage">
               <MappingFragment StoreEntitySet="OrdersTemplateImages">
-                <ScalarProperty Name="Image" ColumnName="Image" />
-                <ScalarProperty Name="AdditionalInformation" ColumnName="AdditionalInformation" />
-                <ScalarProperty Name="OrderTemplateId" ColumnName="OrderTemplateId" />
                 <ScalarProperty Name="ImageId" ColumnName="ImageId" />
+                <ScalarProperty Name="OrderTemplateId" ColumnName="OrderTemplateId" />
+                <ScalarProperty Name="AdditionalInformation" ColumnName="AdditionalInformation" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="OrdersTemplateInformations">
             <EntityTypeMapping TypeName="CarCosmeticSalonModel.OrdersTemplateInformation">
               <MappingFragment StoreEntitySet="OrdersTemplateInformation">
-                <ScalarProperty Name="Information" ColumnName="Information" />
-                <ScalarProperty Name="TypeOfInformation" ColumnName="TypeOfInformation" />
-                <ScalarProperty Name="OrderTemplateId" ColumnName="OrderTemplateId" />
                 <ScalarProperty Name="InformationId" ColumnName="InformationId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="OrdersTemplateSets">
-            <EntityTypeMapping TypeName="CarCosmeticSalonModel.OrdersTemplateSet">
-              <MappingFragment StoreEntitySet="OrdersTemplateSet">
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="OrderSetId" ColumnName="OrderSetId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="SocialMedias">
-            <EntityTypeMapping TypeName="CarCosmeticSalonModel.SocialMedia">
-              <MappingFragment StoreEntitySet="SocialMedia">
-                <ScalarProperty Name="link" ColumnName="link" />
-                <ScalarProperty Name="TypeOfSocialmedia" ColumnName="TypeOfSocialmedia" />
-                <ScalarProperty Name="ShortDescripption" ColumnName="ShortDescripption" />
-                <ScalarProperty Name="SocialMediaId" ColumnName="SocialMediaId" />
+                <ScalarProperty Name="OrderTemplateId" ColumnName="OrderTemplateId" />
+                <ScalarProperty Name="TypeOfInformation" ColumnName="TypeOfInformation" />
+                <ScalarProperty Name="Information" ColumnName="Information" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="UserImages">
             <EntityTypeMapping TypeName="CarCosmeticSalonModel.UserImage">
               <MappingFragment StoreEntitySet="UserImages">
-                <ScalarProperty Name="Image" ColumnName="Image" />
-                <ScalarProperty Name="AdditionalInformation" ColumnName="AdditionalInformation" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="ImageId" ColumnName="ImageId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="AdditionalInformation" ColumnName="AdditionalInformation" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="UserInformations">
             <EntityTypeMapping TypeName="CarCosmeticSalonModel.UserInformation">
               <MappingFragment StoreEntitySet="UserInformations">
-                <ScalarProperty Name="Information" ColumnName="Information" />
-                <ScalarProperty Name="TypeOfInformation" ColumnName="TypeOfInformation" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="InformationId" ColumnName="InformationId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="TypeOfInformation" ColumnName="TypeOfInformation" />
+                <ScalarProperty Name="Information" ColumnName="Information" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="CarCosmeticSalonModel.User">
               <MappingFragment StoreEntitySet="Users">
-                <ScalarProperty Name="UserTypeId" ColumnName="UserTypeId" />
-                <ScalarProperty Name="AccoutCreateDate" ColumnName="AccoutCreateDate" />
-                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
-                <ScalarProperty Name="Surname" ColumnName="Surname" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="Login" ColumnName="Login" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="AccoutCreateDate" ColumnName="AccoutCreateDate" />
+                <ScalarProperty Name="UserTypeId" ColumnName="UserTypeId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="UserTypes">
             <EntityTypeMapping TypeName="CarCosmeticSalonModel.UserType">
               <MappingFragment StoreEntitySet="UserType">
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="AccessRights" ColumnName="AccessRights" />
                 <ScalarProperty Name="UserTypeId" ColumnName="UserTypeId" />
+                <ScalarProperty Name="AccessRights" ColumnName="AccessRights" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="OrdersTemplateOrdersSet" TypeName="CarCosmeticSalonModel.OrdersTemplateOrdersSet" StoreEntitySet="OrdersTemplateOrdersSet">
-            <EndProperty Name="OrdersTemplateSet">
-              <ScalarProperty Name="OrderSetId" ColumnName="OrderSetId" />
-            </EndProperty>
-            <EndProperty Name="OrdersTemplate">
-              <ScalarProperty Name="OrderTemplateId" ColumnName="OrderTemplateId" />
-            </EndProperty>
-          </AssociationSetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

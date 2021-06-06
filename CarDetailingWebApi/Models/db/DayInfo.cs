@@ -17,7 +17,7 @@ namespace CarDetailingWebApi.Models.db
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public DayInfo()
         {
-            this.DiffrentDayInfoes = new HashSet<DiffrentDayInfo>();
+            this.DifDayInfoes = new HashSet<DifDayInfo>();
         }
     
         public int DayId { get; set; }
@@ -27,6 +27,6 @@ namespace CarDetailingWebApi.Models.db
         public string CloseHour { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DiffrentDayInfo> DiffrentDayInfoes { get; set; }
+        public virtual ICollection<DifDayInfo> DifDayInfoes { get; set; }
     }
 }

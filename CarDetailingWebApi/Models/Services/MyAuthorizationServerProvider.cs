@@ -1,7 +1,9 @@
 ﻿using Microsoft.Owin.Security.OAuth;
+using Ninject;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
@@ -13,8 +15,14 @@ namespace CarDetailingWebApi.Models.Services
    {
       //We need to inherit the MyAuthorizationServerProvider class from OAuthAuthorizationServerProvider 
       //class and then need to override the ValidateClientAuthentication and GrantResourceOwnerCredentials method.
+      IUsersRepository _userRepo;
+      public MyAuthorizationServerProvider()
+      {
 
 
+         _userRepo = new UsersRepository();
+         //var UserRepo = kernel.Get<IRepository<User>>("UsersRepo");
+      }
 
 
       //The ValidateClientAuthentication method is used for validating the client application.
@@ -25,8 +33,7 @@ namespace CarDetailingWebApi.Models.Services
       }
       public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
       {
-         UsersRepository _repo = new UsersRepository();
-         var res = _repo.Login(context.UserName, context.Password);
+         var res = _userRepo.Login(context.UserName, context.Password);
          if (res.status == true)
          {
             db.User user =res.value;

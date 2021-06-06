@@ -11,7 +11,7 @@ namespace CarDetailingWebApi.Models
    {
       public Result<User> Login(string login, string password)
       {
-         using (CarCosmeticSalonEntities db = new CarCosmeticSalonEntities())
+         using (CarCosmeticSalonEntities2 db = new CarCosmeticSalonEntities2())
          {
             db.Configuration.LazyLoadingEnabled = false;
             var r = new Result<User>();
@@ -69,7 +69,7 @@ namespace CarDetailingWebApi.Models
       {
          var r = new Result<List<User>>();
          r = base.Get();
-         using (CarCosmeticSalonEntities db = new CarCosmeticSalonEntities())
+         using (CarCosmeticSalonEntities2 db = new CarCosmeticSalonEntities2())
          {
             db.Configuration.LazyLoadingEnabled = false;
 
@@ -88,7 +88,7 @@ namespace CarDetailingWebApi.Models
       {
          var r = base.GetById(id);
 
-         using (CarCosmeticSalonEntities db = new CarCosmeticSalonEntities())
+         using (CarCosmeticSalonEntities2 db = new CarCosmeticSalonEntities2())
          {
             db.Configuration.LazyLoadingEnabled = false;
             r.value.UserType = db.UserTypes.FirstOrDefault(u => u.UserTypeId == r.value.UserTypeId);
@@ -98,7 +98,7 @@ namespace CarDetailingWebApi.Models
       }
       public bool UserExist(string login)
       {
-         using (CarCosmeticSalonEntities db = new CarCosmeticSalonEntities())
+         using (CarCosmeticSalonEntities2 db = new CarCosmeticSalonEntities2())
          {
             return db.Users.Any(u => u.Login == login);
          }
@@ -106,7 +106,7 @@ namespace CarDetailingWebApi.Models
 
       public Result<User> GetByLogin(string login)
       {
-         using (CarCosmeticSalonEntities db = new CarCosmeticSalonEntities())
+         using (CarCosmeticSalonEntities2 db = new CarCosmeticSalonEntities2())
          {
             db.Configuration.LazyLoadingEnabled = false;
             var r = new Result<User>();
@@ -127,7 +127,7 @@ namespace CarDetailingWebApi.Models
       }
       public bool IsFirstUser()
       {
-         using (CarCosmeticSalonEntities db = new CarCosmeticSalonEntities())
+         using (CarCosmeticSalonEntities2 db = new CarCosmeticSalonEntities2())
          {
             return db.Users.Count() < 1;
          }
@@ -135,7 +135,7 @@ namespace CarDetailingWebApi.Models
       }
       public Result<int> GetIdByLogin(string login)
       {
-         using (CarCosmeticSalonEntities db = new CarCosmeticSalonEntities())
+         using (CarCosmeticSalonEntities2 db = new CarCosmeticSalonEntities2())
          {
             var r = new Result<int>();
             var i = db.Users.FirstOrDefault(u => u.Login == login).UserId;

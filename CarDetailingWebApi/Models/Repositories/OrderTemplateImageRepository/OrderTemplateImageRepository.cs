@@ -10,7 +10,7 @@ namespace CarDetailingWebApi.Models.Repositories.OrderTemplateImageRepository
     {
         public Result<List<OrdersTemplateImage>> GetImagesFromOrderTemplateId(int orderTemplateId)
         {
-            using (CarCosmeticSalonEntities db = new CarCosmeticSalonEntities())
+            using (CarCosmeticSalonEntities2 db = new CarCosmeticSalonEntities2())
             {
                 db.Configuration.LazyLoadingEnabled = false;
                 var r = new Result<List<OrdersTemplateImage>>();

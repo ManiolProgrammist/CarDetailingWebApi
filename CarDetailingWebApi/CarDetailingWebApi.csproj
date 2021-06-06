@@ -17,9 +17,9 @@
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
     <IISExpressSSLPort />
-    <IISExpressAnonymousAuthentication />
-    <IISExpressWindowsAuthentication />
-    <IISExpressUseClassicPipelineMode />
+    <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
+    <IISExpressWindowsAuthentication>disabled</IISExpressWindowsAuthentication>
+    <IISExpressUseClassicPipelineMode>false</IISExpressUseClassicPipelineMode>
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
@@ -41,6 +41,8 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <FilesToIncludeForPublish>OnlyFilesToRunTheApp</FilesToIncludeForPublish>
+    <LegacyPublishPropertiesPageEnabled>true</LegacyPublishPropertiesPageEnabled>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
@@ -143,15 +145,15 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
-    <Content Include="Models\db\Model1.Context.tt">
+    <Content Include="Models\db\dbModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Model1.edmx</DependentUpon>
-      <LastGenOutput>Model1.Context.cs</LastGenOutput>
+      <DependentUpon>dbModel.edmx</DependentUpon>
+      <LastGenOutput>dbModel.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\db\Model1.tt">
+    <Content Include="Models\db\dbModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Model1.edmx</DependentUpon>
-      <LastGenOutput>Model1.cs</LastGenOutput>
+      <DependentUpon>dbModel.edmx</DependentUpon>
+      <LastGenOutput>dbModel.cs</LastGenOutput>
     </Content>
     <Content Include="Web.config" />
   </ItemGroup>
@@ -160,6 +162,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\OptionsController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
+    <Compile Include="Controllers\OrderInfoController.cs" />
     <Compile Include="Controllers\OrderTemplateController.cs" />
     <Compile Include="Controllers\PayUController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -168,65 +171,53 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\db\Blog.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\db\BlogImage.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\db\DayInfo.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\db\DiffrentDayInfo.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\db\Model1.Context.cs">
+    <Compile Include="Models\db\dbModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Model1.Context.tt</DependentUpon>
+      <DependentUpon>dbModel.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\db\Model1.cs">
+    <Compile Include="Models\db\dbModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\db\Model1.Designer.cs">
+    <Compile Include="Models\db\dbModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Model1.edmx</DependentUpon>
+      <DependentUpon>dbModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\db\DifDayInfo.cs">
+      <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\db\Order.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\db\OrdersInformation.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\db\OrdersTemplate.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\db\OrdersTemplateImage.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\db\OrdersTemplateInformation.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\db\OrdersTemplateSet.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\db\SocialMedia.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\db\User.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\db\UserImage.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\db\UserInformation.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\db\UserType.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\HelpModels\AuthorizationEnum.cs" />
     <Compile Include="Models\HelpModels\LoginUserModel.cs" />
@@ -246,7 +237,9 @@
     <Compile Include="Models\Repositories\OptionRepositories\DiffrentDayInfoRepository.cs" />
     <Compile Include="Models\Repositories\OptionRepositories\IDayInfoRepository.cs" />
     <Compile Include="Models\Repositories\OptionRepositories\IDiffrentDayInfoRepository.cs" />
+    <Compile Include="Models\Repositories\OrdersRepository\IOrdersInfoRepository.cs" />
     <Compile Include="Models\Repositories\OrdersRepository\IOrdersRepository.cs" />
+    <Compile Include="Models\Repositories\OrdersRepository\OrdersInfoRepository.cs" />
     <Compile Include="Models\Repositories\OrdersRepository\OrdersRepository.cs" />
     <Compile Include="Models\Repositories\OrdersTemplateRepositoryF\IOrdersTemplateRepository.cs" />
     <Compile Include="Models\Repositories\OrdersTemplateRepositoryF\OrdersTemplateRepository.cs" />
@@ -262,7 +255,9 @@
     <Compile Include="Models\Services\MyAuthorizationServerProvider.cs" />
     <Compile Include="Models\Services\OptionS\DayInfoService.cs" />
     <Compile Include="Models\Services\OptionS\IDayInfoService.cs" />
+    <Compile Include="Models\Services\OrderServicesF\IOrderInfoService.cs" />
     <Compile Include="Models\Services\OrderServicesF\IOrderServices.cs" />
+    <Compile Include="Models\Services\OrderServicesF\OrderInfoService.cs" />
     <Compile Include="Models\Services\OrderTemplateServicesF\IOrderTemplateService.cs" />
     <Compile Include="Models\Services\OrderTemplateServicesF\OrdersTemplateService.cs" />
     <Compile Include="Models\Services\UserRightsService\IUserRightsService.cs" />
@@ -275,15 +270,19 @@
     <Compile Include="App_Start\StartupAuthenticationServ.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EntityDeploy Include="Models\db\Model1.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\db\Model1.edmx.diagram">
-      <DependentUpon>Model1.edmx</DependentUpon>
-    </Content>
     <Content Include="libman.json" />
+    <EntityDeploy Include="Models\db\dbModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>dbModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\db\dbModel.edmx.diagram">
+      <DependentUpon>dbModel.edmx</DependentUpon>
+    </Content>
     <None Include="packages.config" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\web.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -293,6 +292,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Data\" />
+    <Folder Include="Views\InfoOrder\" />
+    <Folder Include="Views\OrderInfo\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
@@ -312,9 +314,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>52951</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:32912/</IISUrl>
-          <OverrideIISAppRootUrl>True</OverrideIISAppRootUrl>
-          <IISAppRootUrl>http://localhost:32912/</IISAppRootUrl>
+          <IISUrl>http://localhost:51547/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

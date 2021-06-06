@@ -11,7 +11,7 @@ namespace CarDetailingWebApi.Models.Repositories.OrdersTemplateRepositoryF
 
         public Result<OrdersTemplate> GetByName(string name)
         {
-            using (CarCosmeticSalonEntities db = new CarCosmeticSalonEntities())
+            using (CarCosmeticSalonEntities2 db = new CarCosmeticSalonEntities2())
             {
                 db.Configuration.LazyLoadingEnabled = false;
                 var r = new Result<OrdersTemplate>();
