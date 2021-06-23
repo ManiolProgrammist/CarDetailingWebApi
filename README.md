@@ -2,6 +2,7 @@
 backend for CarDetailing web application.
 
 Example of backend for web application.
+
 Features
 
 Functional account creation with full encryption of password, First created user will have Admin privileges. 
