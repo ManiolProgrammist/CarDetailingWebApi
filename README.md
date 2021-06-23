@@ -27,3 +27,6 @@ are injected by NINJECT lib.
 
 Entire install instruction for Frontend and backend (PL) in "Instrukcja obsługi aplikacji.md" file.
 
+
+Example of frontend for this api:
+https://github.com/ManiolProgrammist/CarDetailingAngular
